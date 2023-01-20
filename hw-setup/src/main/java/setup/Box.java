@@ -12,7 +12,7 @@
 package setup;
 
 import java.lang.Iterable;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * This is a container can be used to contain Balls. The key
@@ -25,6 +25,7 @@ public class Box implements Iterable<Ball> {
      * ballContainer is used to internally store balls for this Box.
      */
     private BallContainer ballContainer;
+    private double maxVolume;
 
     /**
      * Constructor that creates a new box.
@@ -33,7 +34,9 @@ public class Box implements Iterable<Ball> {
      */
     public Box(double maxVolume) {
         // Your code goes here.  Remove the exception after you're done.
-        throw new RuntimeException("Method not implemented");
+        this.ballContainer = new BallContainer();
+        this.maxVolume = maxVolume;
+        // throw new RuntimeException("Method not implemented");
     }
 
     /**
@@ -65,7 +68,13 @@ public class Box implements Iterable<Ball> {
      */
     public boolean add(Ball b) {
         // Your code goes here.  Remove the exception after you're done.
-        throw new RuntimeException("Method not implemented");
+        if (!ballContainer.contains(b) && ballContainer.getVolume() != maxVolume) {
+            ballContainer.add(b);
+            return true;
+        } else {
+            return false;
+        }
+        // throw new RuntimeException("Method not implemented");
     }
 
     /**
@@ -78,7 +87,25 @@ public class Box implements Iterable<Ball> {
      */
     public Iterator<Ball> getBallsFromSmallest() {
         // Your code goes here.  Remove the exception after you're done.
-        throw new RuntimeException("Method not implemented");
+        ComparatorBalls comparatorBalls = new ComparatorBalls() {
+            @Override
+            public int compare(Ball b1, Ball b2) {
+                return super.compare(b1, b2);
+            }
+        };
+        TreeSet<Ball> sortedSet = new TreeSet<Ball>(comparatorBalls);
+        Iterator<Ball> iterator = iterator();
+        while (iterator.hasNext()) {
+            sortedSet.add(iterator.next());
+        }
+        return sortedSet.iterator();
+        // throw new RuntimeException("Method not implemented");
+
+    }
+    public abstract class ComparatorBalls implements Comparator<Ball> {
+        public int compare(Ball b1, Ball b2) {
+            return Double.compare(b1.getVolume(), b2.getVolume());
+        }
     }
 
     /**

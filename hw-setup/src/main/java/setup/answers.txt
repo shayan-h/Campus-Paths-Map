@@ -4,15 +4,22 @@
 1. Why did Fibonacci fail the testThrowsIllegalArgumentException< test? What (if anything) did
 you have to do to fix it? If you did not have to change anything to fix this issue, explain why.
 
-
+This test failed specfically because the condition in the first if statement was "n <= 0".
+This meant that if 0 was passed into the method, the code would treat it as if it was a negative
+number which is incorrect. I simply changed it to "n < 0" so 0 is not included as a negative number.
 
 2. Why did Fibonacci fail the testBaseCase test? What (if anything) did you have to do to fix
 it? If you did not have to change anything to fix this issue, explain why.
 
-
+I think the testBaseCase failed because the else if condition was including 2 in the condition: "n <= 2".
+I changed this condition to "n < 2" so 2 is not included. This is because the base case test was
+testing for base cases 0 and 1 in the fibonacci sequence and these first two terms are always 1 and
+2 is not included in this case.
 
 3.Why did Fibonacci fail the testInductiveCase test? What (if anything) did you have to do to
 fix it? If you did not have to change anything to fix this issue, explain why.
 
-
+It failed this test because in line 37 within the else clause of the code, the two recursion statements
+were subtracting eachother. I changed them to add eachother instead to get the correct result for
+Fibonacci.
 
