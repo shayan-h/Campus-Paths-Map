@@ -4,7 +4,17 @@
 
 1. Multiplication Pseudocode
 
-
+- r = p * q:
+    - Set r = 0
+    - {inv1: r = 0 | r = p_0 * q_0 + p_0 * q_1 + ... + p_1 * q_0 + p_1 * q_1 + ... + p_i * q_j where q_j is the jth term in q and p_i is the ith term in p}
+    - for each term t_p in p:
+        - {inv2: r = 0 | r = p_i * q_0 + p_i * q_1 + ... + p_i * q_j where q_j is the jth term in q and p_i is the ith term in p}
+        - for each term t_q in q:
+            - if t_p & t_q have degrees,
+                - then calculate sum of their degrees and products of their coefficients and add to r
+            - else if only one of t_p or t_q has a degree,
+                - then multiply the term's coefficient which has a degree with the constant term and add to r
+            - else multiply both constant terms and add to r
 
 2. Division Pseudocode
 
