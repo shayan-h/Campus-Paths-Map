@@ -17,6 +17,36 @@
             - else multiply both constant terms and add to r
 
 2. Division Pseudocode
+Outline:
+    p: dividend
+    q: divisor
+    quo: 0
+    rem: 0
+    - Step 1: Divide t_p by t_q (sub degrees)
+    - Step 2: Add answer to step 1 to quo
+    - Step 3: Multiply answer to step 1 with entire poly q
+    - Step 4: Subtract answer to step 3 from entre poly p
+    - Step 5: Assign answer to step 4 to rem
+    - Step 6: Repeat steps 1 - 5 until the degree of q is greater than the degree of rem
+
+- quo = p / q - rem
+    - set rem = 0
+    - set quo = 0
+    - set term = 0
+    - set degRem = rem.degree()
+    - {inv}
+    - while the degree rem <= the degree of q:
+        - if rem is empty (first iteration of loop),
+            - then term = divide p_0 by q_0, add term to quo
+            - multiply term with poly q
+        - else (every other iteration),
+            - term = divide rem_0 by q_0, add term to quo
+            - multiply term with poly q
+        - rem = poly p - term
+        - set degRem = rem.degree()
+
+
+
 
 
 
