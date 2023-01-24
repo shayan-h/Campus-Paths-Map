@@ -17,41 +17,48 @@
             - else multiply both constant terms and add to r
 
 2. Division Pseudocode
-Outline:
-    p: dividend
-    q: divisor
-    quo: 0
-    rem: 0
-    - Step 1: Divide t_p by t_q (sub degrees)
-    - Step 2: Add answer to step 1 to quo
-    - Step 3: Multiply answer to step 1 with entire poly q
-    - Step 4: Subtract answer to step 3 from entre poly p
-    - Step 5: Assign answer to step 4 to rem
-    - Step 6: Repeat steps 1 - 5 until the degree of q is greater than the degree of rem
 
 - quo = p / q - rem
-    - set rem = 0
+    - set rem = poly p
     - set quo = 0
     - set term = 0
     - set degRem = rem.degree()
     - {inv}
-    - while the degree rem <= the degree of q:
-        - if rem is empty (first iteration of loop),
+    - while the degree rem >= the degree of q:
+        - if first iteration of loop,
             - then term = divide p_0 by q_0, add term to quo
             - multiply term with poly q
         - else (every other iteration),
             - term = divide rem_0 by q_0, add term to quo
             - multiply term with poly q
-        - rem = poly p - term
-        - set degRem = rem.degree()
-
-
-
-
-
+        - rem = rem - term
+        - set degRem = rem.degree() (if rem is a constant then degree is 0)
+    - return quo
 
 3. Division Example: (x3+x-1) / (x+1) = x2-x+2
 
+- p = x^3+x-1
+- q = x+1
+- rem = copy of p = x^3+x-1
+- quo = 0
+- term = 0
+- degRem = 3
+    - (p and q don't change)
+    - while degRem >= q.degree() (q.degree() = 1)
+        - Iteration 1: rem = x^3+x-1, quo = 0, term = 0, degRem = 3
+            - if first iteration, YES term = x^2, quo = x^2, term = x^3+x^2
+            - rem = -x^2+x-1
+            - degRem = 2
+        - Iteration 2: rem = -x^2+x-1, quo = x^2, term = x^3+x^2, degRem = 2
+            - else (every other iteration), YES term = -x, quo = x^2-x, term = -x^2-x
+            - rem = 2x-1
+            - degRem = 1
+        - Iteration 3: 2x-1, quo = x^2-x, term = -x^2-x, degRem = 1
+            - else (every other iteration), YES term = 2, quo = x^2-x+2, term = 2x+2
+            - rem = -3
+            - degRem = 0 because rem is a constant
+    - loop ends because degRem < q.degree()
+    - return quo = x^2-x+2
 
 
 
