@@ -79,6 +79,9 @@ public final class RatNum extends Number implements Comparable<RatNum> {
     }
 
     /**
+     *
+     *
+     *
      * Constructs a new RatNum.
      *
      * @param n the numerator of the new RatNum

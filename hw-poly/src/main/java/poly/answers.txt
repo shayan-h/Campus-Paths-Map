@@ -67,14 +67,28 @@
 
 1. Weakened Rep Invariant
 
+The 2nd RatNum constructor does not need to call the gcd method to reduce the fraction by g so those few lines of code can be removed. There are
+no negative side effects to removing this chunk of code.
+
+The if condition inside the checkRep() method can also be removed as we no longer require it to be enforced wherever checkRep() may be called.
+This change affects the code wherever checkRep() is called but will ensure that the fraction being in reduced form is not demanded anywhere in
+the class.
+
+For the toString method, I would copy over the chunk of code previously in the RatNum constructor to above the condition clauses in toString.
+This would reduce the fraction only for this method to return a string, but it won't reduce the RatNum itself.
 
 
 2. Alternate add, sub, mul, div
 
 
 
+
 3. Constructor checkReps
 
+It is not required to call checkRep at the start of the first constructor because the constructor, and it's content ensure that the
+rep invariant is satisfied by making the denom = 1. Since the first constructor only takes in a numer, the fraction is always in reduced form.
+The second contructor also makes sure that the rep invariant is satisfied by changing any negative numer or denom input into positive integers
+by double negating it. It also uses gcd to reduce the fraction.
 
 
 
