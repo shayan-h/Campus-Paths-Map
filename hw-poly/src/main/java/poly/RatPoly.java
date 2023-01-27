@@ -429,13 +429,17 @@ public final class RatPoly {
         ArrayList<RatTerm> quo = new ArrayList<>();
         RatTerm term = new RatTerm(new RatNum(0), 0);
         int degRem = remPoly.degree();
-        while (degRem >= p.degree()) {
+        while (degRem >= p.degree() && degRem != 0) {
             term = remPoly.getTerm(degRem).div(p.getTerm(p.degree()));
             sortedInsert(quo, term); // quo.add(term);
             RatPoly termPoly = new RatPoly(term);
-            termPoly.mul(p);
-            remPoly.sub(termPoly);
+            termPoly = termPoly.mul(p);
+            remPoly = remPoly.sub(termPoly);
             degRem = remPoly.degree();
+        }
+        if (degRem == 0 || p.degree() == 0) {
+            term = remPoly.getTerm(degRem).div(p.getTerm(p.degree()));
+            sortedInsert(quo, term);
         }
         RatPoly quoPoly = new RatPoly(quo);
         return quoPoly;
@@ -451,7 +455,15 @@ public final class RatPoly {
      */
     public double eval(double d) {
         // TODO: Fill in this method, then remove the RuntimeException
-        throw new RuntimeException("RatPoly.eval() is not yet implemented");
+        if (this.isNaN() == true) {
+            return Double.NaN;
+        }
+        double eval = 0;
+        for (int i = 0; i < terms.size(); i++) {
+            eval += terms.get(i).getCoeff().doubleValue() * Math.pow(d, terms.get(i).getExpt());
+        }
+        return eval;
+        // throw new RuntimeException("RatPoly.eval() is not yet implemented");
     }
 
     /**

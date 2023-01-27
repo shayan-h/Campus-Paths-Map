@@ -99,6 +99,7 @@ by double negating it. It also uses gcd to reduce the fraction.
 
 
 
+
 2. Weakened Rep Invariant
 
 
