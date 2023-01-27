@@ -23,16 +23,15 @@
     - set quo = 0
     - set term = 0
     - set degRem = rem.degree()
-    - {inv}
-    - while the degree rem >= the degree of q:
-        - if first iteration of loop,
-            - then term = divide p_0 by q_0, add term to quo
-            - multiply term with poly q
-        - else (every other iteration),
-            - term = divide rem_0 by q_0, add term to quo
-            - multiply term with poly q
+    - {inv: quo == 0 || quo p_0 / q_0}
+    - while the degree rem >= the degree of q and the degree of rem is not 0:
+        - term = divide rem_0 by q_0, add term to quo
+        - multiply term with poly q
         - rem = rem - term
         - set degRem = rem.degree() (if rem is a constant then degree is 0)
+    - * Loop end *
+    - if degree rem or the degree of q is equal to 0,
+        - then, term = divide rem_0 by q_0, add term to quo
     - return quo
 
 3. Division Example: (x3+x-1) / (x+1) = x2-x+2
@@ -44,20 +43,21 @@
 - term = 0
 - degRem = 3
     - (p and q don't change)
-    - while degRem >= q.degree() (q.degree() = 1)
+    - while degRem >= q.degree() && degRem != 0 (q.degree() = 1)
         - Iteration 1: rem = x^3+x-1, quo = 0, term = 0, degRem = 3
-            - if first iteration, YES term = x^2, quo = x^2, term = x^3+x^2
+            - term = x^2, quo = x^2, term = x^3+x^2
             - rem = -x^2+x-1
             - degRem = 2
         - Iteration 2: rem = -x^2+x-1, quo = x^2, term = x^3+x^2, degRem = 2
-            - else (every other iteration), YES term = -x, quo = x^2-x, term = -x^2-x
+            - term = -x, quo = x^2-x, term = -x^2-x
             - rem = 2x-1
             - degRem = 1
         - Iteration 3: 2x-1, quo = x^2-x, term = -x^2-x, degRem = 1
-            - else (every other iteration), YES term = 2, quo = x^2-x+2, term = 2x+2
+            - term = 2, quo = x^2-x+2, term = 2x+2
             - rem = -3
             - degRem = 0 because rem is a constant
     - loop ends because degRem < q.degree()
+    - * if condition does not apply *
     - return quo = x^2-x+2
 
 
@@ -80,6 +80,8 @@ This would reduce the fraction only for this method to return a string, but it w
 
 2. Alternate add, sub, mul, div
 
+The methods would now take in numerExpr and denomExpr as parameters and the Spec.requires would need to change to params != null. If the denomExpr is equal to
+0 then it will not meet the spec because it did not construct a new ratnum.
 
 
 
@@ -97,20 +99,27 @@ by double negating it. It also uses gcd to reduce the fraction.
 
 1. Calls to checkRep in RatTerm
 
-
+I included the calls to checkRep at the beginning and end of every public method that is not a constructor because these methods are going to be used by the client repeatedly so it
+is safer to include them in every method so that there are not mistakes being made in regards to the rep invariant being met.
 
 
 2. Weakened Rep Invariant
 
+Firstly, the ratTerm constructor will need to change because the condition states that if the provided coeff is 0 then it automatically assigns the expt to 0
+as well. This constructor can instead let the expt input be the expt, regardless of what the coeff is. This change should affect the rest of the code.
+
+These changes are not reliable because something with a 0 coeff should not be allowed to have an expt that is > 0 because it won't matter what that expt is, the
+term will always evaluate to 0.
 
 
 3. Alternate Rep Invariant
 
+The isNaN method would change because if we are saying a term is NaN also has the expt 0, we would want to add a condition for that so when checkRep is called,
+we know that all the rep invariants are met. This change in the rep invariant would affect the code in terms of additional checks to be made in methods of the code.
 
-
-4. Preferred Invariants
-
-
+I would also add a condition in the contractor of ratTerm to make something happen if the coeff is NaN. Right now, only a condition for if it is zero is present, but by
+adding another condition for this new invariant, we can also make sure that the expt is 0 to meet the rep invariant. These changes should handle the other methods like add, sub,
+etc. I believe this new rep invariant does not do any harm and it is easy to implement throughout the code.
 
 
 ## Part 3
@@ -118,9 +127,16 @@ by double negating it. It also uses gcd to reduce the fraction.
 
 1. Calls to checkRep in RatPoly
 
+I included calls to checkRep at the start and end of each public method (before returning), other than the start of constructors, just to make sure that all the outputs and all the inputs
+met the rep invariants so the code worked as said in the specification.
 
 
 2. Alternate Representation
 
-
+I think the advantages of using this alternate form of representation for RatPoly is that it might be easier to implement things like sorting the terms
+because it would just be like sorting regular old lists and overall I am more familiar with lists, so granted I would have to work with two different lists
+and that would make things complicated, but I would at least be familiar with the structure and I also would not have to worry too much about the object type: RatTerm
+when implementing the functions; making sure I am putting in the right term as input. I could see a hashmap with key and value pairs working better with this. I believe
+using RatTerm was far better though because many methods from RatTerm were very useful, quick, and efficient in terms of how much code we wrote. Using the list
+representation would increase the amount of code we would need to type and using RatTerm was very simple in a lot of ways and quick.
 

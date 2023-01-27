@@ -72,6 +72,7 @@ public final class RatPolyStack implements Iterable<RatPoly> {
      */
     public int size() {
     	// TODO: Fill in this method, then remove the RuntimeException
+        checkRep();
         return polys.size();
         // throw new RuntimeException("RatPolyStack.size() is not yet implemented");
     }
@@ -86,6 +87,7 @@ public final class RatPolyStack implements Iterable<RatPoly> {
      */
     public void push(RatPoly p) {
     	// TODO: Fill in this method, then remove the RuntimeException
+        checkRep();
         polys.push(p);
         // throw new RuntimeException("RatPolyStack.push() is not yet implemented");
     }
@@ -100,8 +102,10 @@ public final class RatPolyStack implements Iterable<RatPoly> {
      */
     public RatPoly pop() {
         // TODO: Fill in this method, then remove the RuntimeException
+        checkRep();
         RatPoly ret = new RatPoly();
         ret = polys.pop();
+        checkRep();
         return ret;
         // throw new RuntimeException("RatPolyStack.pop() is not yet implemented");
     }
@@ -148,6 +152,7 @@ public final class RatPolyStack implements Iterable<RatPoly> {
      */
     public void clear() {
        // TODO: Fill in this method, then remove the RuntimeException
+        checkRep();
         polys.clear();
         // throw new RuntimeException("RatPolyStack.clear() is not yet implemented");
     }
@@ -162,14 +167,16 @@ public final class RatPolyStack implements Iterable<RatPoly> {
     public RatPoly getNthFromTop(int index) {
         // TODO: Fill in this method, then remove the RuntimeException
         checkRep();
-        Stack<RatPoly> temp = new Stack<RatPoly>();
-        for (int i = 0; i < index; i++)
-            temp.push(polys.pop());
-        RatPoly p = polys.peek();
-        for (int i = 0; i < index; i++)
-            polys.push(temp.pop());
+        Stack<RatPoly> stackDup = new Stack<RatPoly>();
+        for (int i = 0; i < index; i++) {
+            stackDup.push(polys.pop());
+        }
+        RatPoly ratPoly = polys.peek();
+        for (int i = 0; i < index; i++) {
+            polys.push(stackDup.pop());
+        }
         checkRep();
-        return p;
+        return ratPoly;
         // throw new RuntimeException("RatPolyStack.getNthFromTop() unimplemented!\n");
     }
 
