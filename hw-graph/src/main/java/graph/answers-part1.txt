@@ -8,7 +8,20 @@ interface to a graph. If your design includes multiple classes or interfaces, ex
 included each one; if not, explain whether you considered additional classes and why you decided
 not to include them.
 
+For the Edge class, I added the constructor that takes in a label, incoming and outgoing node. This is so that an
+Edge can only exist with at least two other nodes. The incoming and outgoing node can be the same node however, so that
+the edge directs back to itself. I also added getLabel and editLabel so the Edge's label can be retrieved and also
+changed to a new label just in case the user wishes to do so.
 
+For the Node class, I added a single constructor that simply takes in a String label to label the node being created.
+I also added a listChildren method that can be used to get a list of children this node may have. The node class also
+allows getting and editing the label.
+
+The node and the edge class go hand and hand and that was my intention. They relate to eachother in the sense that
+you can't have an edge unless it is directly related to atleast one edge.
+
+The Graph class ties both the Nodes and Edges in together. It will use a list of nodes to print out all nodes in the
+graph and it makes use of edges to perhaps iterate through the nodes using the direction of the edges.
 
 
 ## Part 2
@@ -17,5 +30,6 @@ not to include them.
 What was your testing strategy for this assignment? How do your script tests and JUnit tests
 differ from each other (if they do), and why?
 
-
+JUnit tests go more in depth into each individual method in each of the classes while my script tests are a more broad
+and more base case test. They incorporate the basic things that need to be able to be done with each of the classes.
 

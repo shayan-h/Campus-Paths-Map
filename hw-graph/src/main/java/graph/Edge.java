@@ -13,9 +13,9 @@ public class Edge {
     /**
      * Constructs a new Edge.
      *
-     * @param label
-     * @param outgoingNode
-     * @param incomingNode
+     * @param label String to assign label to Edge.
+     * @param outgoingNode Node to assign outgoing node to edge.
+     * @param incomingNode Node to assing incoming node to edge.
      * @spec.effects Creates a new Edge directed to and outgoing from Nodes. Incoming and Outgoing Node can
      * be the same.
      */
@@ -35,7 +35,7 @@ public class Edge {
     /**
      * Assigns the label associated with this Edge to a new label given through the input.
      *
-     * @param label
+     * @param label String to replace the label of edge.
      * @spec.effects Replaces the label of this Edge with a new one.
      */
     public void editLabel(String label) {

@@ -1,3 +1,5 @@
+# Tests that an empty graph can be constructed
+
 # Create a graph
 CreateGraph graph1
 

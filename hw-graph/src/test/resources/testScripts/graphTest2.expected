@@ -1,3 +1,5 @@
+# Tests if a graph can be created and if nodes can be added
+
 # Create a graph
 created graph graph1
 

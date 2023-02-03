@@ -23,7 +23,7 @@ public class Graph {
     /**
      * Creates multiple new Nodes and adds them in the Graph.
      *
-     * @param labels
+     * @param labels list of Strings to label each Node.
      * @spec.requires !labels.isEmpty()
      * @spec.effects Creates labels.size() new Nodes, each with the given label in the labels list.
      */
@@ -34,7 +34,7 @@ public class Graph {
     /**
      * Adds the given Node to Graph.
      *
-     * @param node
+     * @param node Node to add to the Graph.
      * @spec.effects Adds a Node to the list of Nodes in Graph.
      */
     public void addNode(Node node) {

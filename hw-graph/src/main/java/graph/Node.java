@@ -14,7 +14,7 @@ public class Node {
     /**
      * Creates a new Node.
      *
-     * @param label
+     * @param label String to assign label name to Node.
      * @spec.requires The same label should not already exist.
      * @spec.effects Creates a new Node with a given label.
      */
@@ -42,7 +42,7 @@ public class Node {
     /**
      * Changes the label given to this Node.
      *
-     * @param label
+     * @param label String to replace current label name.
      * @spec.effects Replaces the current label of this Node with the given label.
      */
     public void editLabel(String label) {
