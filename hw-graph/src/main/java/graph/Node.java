@@ -23,22 +23,10 @@ public class Node {
     }
 
     /**
-     * Creates multiple new Nodes.
-     *
-     * @param labels
-     * @spec.requires !labels.isEmpty()
-     * @spec.effects Creates labels.size() new Nodes, each with the given label in the labels list.
-     */
-    public Node(List<String> labels) {
-        throw new RuntimeException("Node has not yet been implemented");
-    }
-
-    /**
      * Returns a list of the given parent Node's children Node(s).
-     * @param parentNode
      * @return Returns a list of children Node(s) of the parent Node.
      */
-    public List<Node> listChildren(Node parentNode) {
+    public List<Node> listChildren() {
         throw new RuntimeException("listChildren has not yet been implemented");
     }
 

@@ -42,16 +42,7 @@ public class Edge {
         throw new RuntimeException("editLabel has not yet been implemented");
     }
 
-    /**
-     * Changes the direction of this Edge by assigning the outgoing Node as the incoming Node and the incoming Node
-     * as the new outgoing Node.
-     *
-     * @spec.effects Flips the direction in which this Edge is going by swapping the incoming Node with the outgoing
-     * Node.
-     */
-    public void swapDirection() {
-        throw new RuntimeException("swapDirection has not yet been implemented");
-    }
+
 
 
 

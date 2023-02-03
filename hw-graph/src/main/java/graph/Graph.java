@@ -21,6 +21,17 @@ public class Graph {
     }
 
     /**
+     * Creates multiple new Nodes and adds them in the Graph.
+     *
+     * @param labels
+     * @spec.requires !labels.isEmpty()
+     * @spec.effects Creates labels.size() new Nodes, each with the given label in the labels list.
+     */
+    public void addMultipleNodes(List<String> labels) {
+        throw new RuntimeException("addMultipleNodes has not yet been implemented");
+    }
+
+    /**
      * Adds the given Node to Graph.
      *
      * @param node
@@ -37,6 +48,15 @@ public class Graph {
      */
     public List<Node> listNodes() {
         throw new RuntimeException("listNodes has not yet been implemented");
+    }
+
+    /**
+     * Returns the number of Nodes in this Graph.
+     *
+     * @return the size of this Graph.
+     */
+    public int size() {
+        throw new RuntimeException("Size has not yet been implemented");
     }
 
 }
