@@ -20,12 +20,13 @@ public class Graph {
     // Abstraction Function:
     // Graph, gr, represents a list of Nodes with any associated Edges
     // incoming to or from a Node:
-    // nodes[0..i], representation: subpart of nodes in which each node is
+    //
     //
     //
     // Representation Invariant for every Graph gr:
     // nodes != null && nodes.get[i].label != nodes[0..i-1..n].label
-    // &&
+    // && nodes.contains(edges.get[i].getoutgoingNode) &&
+    // nodes.contains(edges.get[i].getincomingNode)
 
     /**
      * Creates a new empty Graph.
@@ -43,17 +44,26 @@ public class Graph {
      *
      * @param node Node to add to the Graph.
      * @spec.effects Adds a Node to the list of Nodes in Graph.
+     * @return True if Node is added to Graph and false otherwise.
      */
-    public void addNode(Node node) {
-        nodes.add(node);
+    public boolean addNode(Node node) {
+        if (!nodes.contains(node)) {
+            nodes.add(node);
+            return true;
+        } else {
+            return false;
+        }
+
         // throw new RuntimeException("addNode has not yet been implemented");
     }
 
     /**
-     * Adds the given edge to Graph.
+     * Adds the given edge to Graph only if the Edge has an incoming or outgoing node already in
+     * the graph.
      *
      * @param edge
      * @spec.effects Adds an Edge to the list of Edges in Graph.
+     * @return True if Edge is added to Graph and false otherwise.
      */
     public boolean addEdge(Edge edge) {
         boolean validOut = false;
@@ -75,6 +85,7 @@ public class Graph {
             }
         }
         if (validIn == true && validOut == true) {
+            edges.add(edge);
             return true;
         } else {
             return false;
@@ -104,9 +115,9 @@ public class Graph {
     }
 
     /**
+     * Clears the graph by clearing all Edges and Nodes.
      *
-     *
-     *
+     * @spec.effects Clears the graph entirely.
      */
     public void clearGraph() {
         this.nodes.clear();
@@ -118,14 +129,14 @@ public class Graph {
      *
      * @return Returns a list of children Node(s) of the parent Node.
      */
-    public List<Node> listChildren(Node node) { // edges: n1,n2  n3,n1  n1,n7, n1,n8 nodes: *n1*, n2, n3
+    public List<Node> listChildren(Node node) {
         List<Node> list = new ArrayList<>();
         if (!this.nodes.contains(node)) {
             return list;
         } else {
-            for (int i = 0; i < edges.size(); i++) {
-                if (edges.get(i).getOutgoingNode().equals(node)) {
-                    list.add(edges.get(i).getIncomingNode());
+            for (int i = 0; i < this.edges.size(); i++) {
+                if (this.edges.get(i).getOutgoingNode().equals(node)) {
+                    list.add(this.edges.get(i).getIncomingNode());
                 }
             }
         }

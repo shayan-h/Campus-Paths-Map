@@ -46,7 +46,7 @@ public class GraphTest {
         Graph graph2 = new Graph();
         Node n2 = new Node("n2");
         graph2.addNode(n1);
-        graph2.addNode(n1);
+        graph2.addNode(n2);
         assertEquals("Graph size should be 2", 2,graph2.size());
     }
 
@@ -79,11 +79,11 @@ public class GraphTest {
     @Test
     public void listChildrenTest() {
         Graph graph1 = new Graph();
-        List<Node> children = new ArrayList<>();
         List<Node> list = new ArrayList<>();
         Node p = new Node("parent");
         Node c = new Node("child");
         Edge e = new Edge("e1", p, c);
+        Edge e7 = new Edge("e7", c, p);
         graph1.addNode(p);
         graph1.addNode(c);
         graph1.addEdge(e);

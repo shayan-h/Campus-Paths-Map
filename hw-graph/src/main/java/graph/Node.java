@@ -12,7 +12,6 @@ public class Node {
 
     // Fields
     private String label;
-    private List<Edge> edges;
 
     // Representation Invariant for every Node n:
     // n.label != null && n.listChildren() != null
@@ -28,7 +27,6 @@ public class Node {
      */
     public Node(String label) {
         this.label = label;
-        edges = new ArrayList<>();
         // throw new RuntimeException("Node has not yet been implemented");
     }
 
