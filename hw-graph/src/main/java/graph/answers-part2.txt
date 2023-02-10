@@ -17,6 +17,24 @@ A few examples of possible Graph representations:
 representations listed above (for example, in terms of runtime complexity, space
 complexity, or ease of implementation).
 
+For A, an advantage of this type of Graph representation is that all the nodes and edges are free flowing and there
+is no data structure to limit the representation, which is good for space complexity. However, there would be difficulty
+implementing this representation because there can be nodes that are not associated with any edge and there could be far
+more edges than nodes. This makes things complicated when running through all the nodes and all the edges as opposed to
+iterating through a single data structure to print all edges and nodes.
+
+For B, A list of nodes that is associated with outgoing edges (or lack there of) is sufficient in terms of runtime because
+it is fairly straightforward to be able to iterate through a list of all nodes and cover any edges associated with any nodes.
+Since there can be nodes without edges, it is useful to have a list of all nodes, regardless of whether they are associated
+with an edge. A disadvantage of this representation would be the difficulty of implementing a function to list all children
+in the graph. This can be tricky because the nodes with outgoing edges may also be incoming nodes for different edges, so
+figuring out how to determine this can be tricky.
+
+For C, a matrix which has pairs <A, B> of nodes if there is a link between them, in what direction, and how many links
+is an interesting representation that is both tough on runtime and space complexity because there are multiple things to
+check in each element of the matrix and there can be many nodes linking to many other nodes and this can make the matrix
+very dense. This is however an efficient way of representing the graph and is fairly straightforward to think about
+and perhaps even implement.
 
 
 
@@ -24,6 +42,9 @@ complexity, or ease of implementation).
 chose it. If you chose to use a different representation than one of the three we described
 above, be sure to list its advantages and disadvantages, too.
 
+I chose to represent my graph using a list of nodes where the nodes are associated with their outgoing edges. I thought
+it would be a useful way to have all the nodes in one data structure since nodes can be without edges but edges can't,
+so it covers the entirety of the graph.
 
 
 

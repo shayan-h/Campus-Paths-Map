@@ -1,5 +1,6 @@
 package graph;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,24 +11,25 @@ import java.util.List;
 public class Node {
 
     // Fields
+    private String label;
+    private List<Edge> edges;
+
+    // Representation Invariant for every Node n:
+    // n.label != null && n.listChildren() != null
+
+
 
     /**
      * Creates a new Node.
      *
      * @param label String to assign label name to Node.
-     * @spec.requires The same label should not already exist.
+     * // @spec.requires The same label should not already exist. //
      * @spec.effects Creates a new Node with a given label.
      */
     public Node(String label) {
-        throw new RuntimeException("Node has not yet been implemented");
-    }
-
-    /**
-     * Returns a list of the given parent Node's children Node(s).
-     * @return Returns a list of children Node(s) of the parent Node.
-     */
-    public List<Node> listChildren() {
-        throw new RuntimeException("listChildren has not yet been implemented");
+        this.label = label;
+        edges = new ArrayList<>();
+        // throw new RuntimeException("Node has not yet been implemented");
     }
 
     /**
@@ -36,7 +38,8 @@ public class Node {
      * @return The String label associated with this Node.
      */
     public String getLabel() {
-        throw new RuntimeException("getLabel has not yet been implemented");
+        return this.label;
+        // throw new RuntimeException("getLabel has not yet been implemented");
     }
 
     /**
@@ -46,7 +49,8 @@ public class Node {
      * @spec.effects Replaces the current label of this Node with the given label.
      */
     public void editLabel(String label) {
-        throw new RuntimeException("editLabel has not yet been implemented");
+        this.label = label;
+        // throw new RuntimeException("editLabel has not yet been implemented");
     }
 
 
