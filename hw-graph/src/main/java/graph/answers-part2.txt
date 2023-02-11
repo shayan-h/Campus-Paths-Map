@@ -42,9 +42,10 @@ and perhaps even implement.
 chose it. If you chose to use a different representation than one of the three we described
 above, be sure to list its advantages and disadvantages, too.
 
-I chose to represent my graph using a list of nodes where the nodes are associated with their outgoing edges. I thought
-it would be a useful way to have all the nodes in one data structure since nodes can be without edges but edges can't,
-so it covers the entirety of the graph.
+I chose to represent my graph using a list of nodes and a list of edges where the nodes are associated with
+their outgoing edges and edges can't be added without a related node (one node can be both the outgoing and
+incoming node of an edge). I thought it would be a useful way to have all the nodes in one data structure
+since nodes can be without edges but edges can't, so it covers the entirety of the graph.
 
 
 
@@ -56,11 +57,14 @@ so it covers the entirety of the graph.
 1. Describe any new tests you added and why you added them, or why you feel that your original
 tests alone are sufficient.
 
-
+- Added addEdge method in Graph with an addEdge test.
+- All other tests were sufficient because they tested each of the methods.
 
 
 2. Did you make any changes to your specifications as you were implementing your Graph? (yes/no)
 If yes, describe your changes and why you made them.
 
-
+Yes. I added a list of Edges to the graph class and moved listChildren from Node to Graph. Changed
+the spec of graph to say only Edges that are associated with a node in graph are allowed to be added so
+Edges can not be added that have no relation to the graph.
 

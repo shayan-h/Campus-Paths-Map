@@ -105,4 +105,24 @@ public class GraphTest {
         assertEquals("listChildren should return: child1, child2, child3", list, graph1.listChildren(p));
     }
 
+    @Test
+    public void getNodeTest() {
+        Graph graph1 = new Graph();
+        Node n1 = new Node("parent");
+        graph1.addNode(n1);
+        assertEquals("getNode should return: parent", n1, graph1.getNode("parent"));
+    }
+
+    @Test
+    public void getEdgeTest() {
+        Graph graph1 = new Graph();
+        Node n1 = new Node("parent");
+        Node n2 = new Node("child");
+        graph1.addNode(n1);
+        graph1.addNode(n2);
+        Edge e1 = new Edge("e1", n1, n2);
+        graph1.addEdge(e1);
+        assertEquals("getEdge should return: e1", e1, graph1.getEdge(n1));
+    }
+
 }

@@ -10,7 +10,7 @@ AddNode graph1 n2
 # Add an edge
 AddEdge graph1 n1 n2 e1
 
-# Print the nodes in the graph and
+# Print the nodes in the graph
 ListNodes graph1
 
 # Print the outgoing edges from n1

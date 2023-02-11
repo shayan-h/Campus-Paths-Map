@@ -1,7 +1,5 @@
 package graph;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <b>Node</b> is an immutable object which has a unique label and is a parent or child of some other Node. A Node is directed
@@ -13,10 +11,13 @@ public class Node {
     // Fields
     private String label;
 
+    // Abstract Function:
+    // Node n, represents a node with a String label.
+    //
     // Representation Invariant for every Node n:
-    // n.label != null && n.listChildren() != null
-
-
+    // n.label != null
+    // In other words:
+    // Node simply must have a label to be considered a Node.
 
     /**
      * Creates a new Node.
@@ -27,7 +28,15 @@ public class Node {
      */
     public Node(String label) {
         this.label = label;
+        checkRep();
         // throw new RuntimeException("Node has not yet been implemented");
+    }
+
+    /**
+     * Checks the representation invariant for the Node class.
+     */
+    private void checkRep() {
+        assert (this.label != null): "This node is null";
     }
 
     /**
@@ -36,6 +45,7 @@ public class Node {
      * @return The String label associated with this Node.
      */
     public String getLabel() {
+        checkRep();
         return this.label;
         // throw new RuntimeException("getLabel has not yet been implemented");
     }
@@ -47,6 +57,7 @@ public class Node {
      * @spec.effects Replaces the current label of this Node with the given label.
      */
     public void editLabel(String label) {
+        checkRep();
         this.label = label;
         // throw new RuntimeException("editLabel has not yet been implemented");
     }
