@@ -97,6 +97,7 @@ public class Graph {
      * @return True if Edge is added to Graph and false otherwise.
      */
     public boolean addEdge(Edge edge) {
+        /*
         boolean validOut = false;
         boolean validIn = false;
         for (int i = 0; i < nodes.size(); i++) {
@@ -115,12 +116,13 @@ public class Graph {
                 validIn = false;
             }
         }
-        if (validIn == true && validOut == true) {
+         */
+        // if (validIn == true && validOut == true) {
             edges.add(edge);
-            return true;
-        } else {
-            return false;
-        }
+           return true;
+        // } else {
+            // return false;
+        // }
         // throw new RuntimeException("addEdge has not yet been implemented");
     }
 

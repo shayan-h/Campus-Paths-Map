@@ -12,6 +12,9 @@
 package marvel;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,8 +31,20 @@ public class MarvelParser {
      * @spec.requires filename is a valid file in the resources/data folder.
      */
     // TODO: Replace 'void' with the type you want the parser to produce
-    public static void parseData(String filename) {
+    public static HashMap<String, HashSet<String>> parseData(String filename) {
         List<String> lines = readLines(filename);
+        HashMap<String, HashSet<String>> charComic = new HashMap<>();
+        String[] splitStrings;
+        for (String s : lines) {
+            splitStrings = s.split(",");
+            if (!charComic.containsKey(splitStrings[1])) {
+                charComic.put(splitStrings[1], new HashSet<String>());
+                charComic.get(splitStrings[1]).add(splitStrings[0]);
+            } else {
+                charComic.get(splitStrings[1]).add(splitStrings[0]);
+            }
+        }
+        return charComic;
 
         // TODO: Complete this method. You'll need to:
         //  - Split each line into its individual parts

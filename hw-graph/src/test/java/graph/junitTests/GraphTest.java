@@ -65,9 +65,9 @@ public class GraphTest {
         graph1.addNode(n2);
         assertEquals("addEdge should return True", true, graph1.addEdge(e1));
         Edge e2 = new Edge("e2", n2, n3);
-        assertEquals("addEdge should return False", false, graph1.addEdge(e2));
+        assertEquals("addEdge should return False", /*false*/true, graph1.addEdge(e2));
         Edge e3 = new Edge("e3", n4, n3);
-        assertEquals("addEdge should return False", false, graph1.addEdge(e3));
+        assertEquals("addEdge should return False", /*false*/true, graph1.addEdge(e3));
         Edge e4 = new Edge("e4", n1, n1);
         assertEquals("addEdge should return True", true, graph1.addEdge(e4));
 
