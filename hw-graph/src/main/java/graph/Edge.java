@@ -10,8 +10,8 @@ public class Edge {
 
     // Fields
     private String label;
-    private Node outgoingNode;
-    private Node incomingNode;
+    private String outgoingNode;
+    private String incomingNode;
 
     // Abstract Function:
     // Edge e, represents a connection between a parent node and a child node.
@@ -32,7 +32,7 @@ public class Edge {
      * @spec.effects Creates a new Edge directed to and outgoing from Nodes. Incoming and Outgoing Node can
      * be the same.
      */
-    public Edge(String label, Node outgoingNode, Node incomingNode) {
+    public Edge(String label, String outgoingNode, String incomingNode) {
         this.label = label;
         this.outgoingNode = outgoingNode;
         this.incomingNode = incomingNode;
@@ -75,7 +75,7 @@ public class Edge {
      *
      * @return Node that this Edge is incoming to otherwise known as the child Node.
      */
-    public Node getIncomingNode() {
+    public String getIncomingNode() {
         checkRep();
         return this.incomingNode;
         // throw new RuntimeException("getIncomingNode has not yet been implemented");
@@ -86,7 +86,7 @@ public class Edge {
      *
      * @return Node that this Edge is outgoing from otherwise known as the parent Node.
      */
-    public Node getOutgoingNode() {
+    public String getOutgoingNode() {
         checkRep();
         return this.outgoingNode;
         // throw new RuntimeException("getOutgoingNode has not yet been implemented");

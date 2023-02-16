@@ -15,7 +15,7 @@ public class Graph {
 
     // Fields
 
-    private List<Node> nodes;
+    private List<String> nodes;
     private List<Edge> edges;
     public static final boolean DEBUG = false;
 
@@ -56,7 +56,7 @@ public class Graph {
                 assert (nodes.contains(edges.get(i).getOutgoingNode()) ||
                         nodes.contains(edges.get(i).getIncomingNode())): "Edge associated with node that is not in graph.";
             }
-            HashSet<Node> set = new HashSet<>();
+            HashSet<String> set = new HashSet<>();
             for (int i = 0; i < nodes.size(); i++) {
                 if (set.contains(nodes.get(i))) {
                     assert (!set.contains(nodes.get(i))): "Node is not unique";
@@ -75,7 +75,7 @@ public class Graph {
      * @spec.effects Adds a Node to the list of Nodes in Graph.
      * @return True if Node is added to Graph and false otherwise.
      */
-    public boolean addNode(Node node) {
+    public boolean addNode(String node) {
         checkRep();
         if (!nodes.contains(node)) {
             nodes.add(node);
@@ -131,9 +131,9 @@ public class Graph {
      *
      * @return List of Nodes.
      */
-    public List<Node> listNodes() {
+    public List<String> listNodes() {
         checkRep();
-        List<Node> list = new ArrayList<>(nodes);
+        List<String> list = new ArrayList<>(nodes);
         return list;
         // throw new RuntimeException("listNodes has not yet been implemented");
     }
@@ -164,9 +164,9 @@ public class Graph {
      *
      * @return Returns a list of children Node(s) of the parent Node.
      */
-    public List<Node> listChildren(Node node) {
+    public List<String> listChildren(String node) {
         checkRep();
-        List<Node> list = new ArrayList<>();
+        List<String> list = new ArrayList<>();
         if (!this.nodes.contains(node)) {
             return list;
         } else {
@@ -186,10 +186,10 @@ public class Graph {
      * @param label to retrieve the node.
      * @return the Node with the given label.
      */
-    public Node getNode(String label) {
+    public String getNode(String label) {
         checkRep();
         for (int i = 0; i < nodes.size(); i++) {
-            if (nodes.get(i).getLabel().equals(label)) {
+            if (nodes.get(i).equals(label)) {
                 checkRep();
                 return nodes.get(i);
             }
@@ -203,7 +203,7 @@ public class Graph {
      * @param parent to retrieve the Edge.
      * @return the Edge with the given parent node.
      */
-    public Edge getEdge(Node parent) {
+    public Edge getEdge(String parent) {
         checkRep();
         for (int i = 0; i < edges.size(); i++) {
             if (edges.get(i).getOutgoingNode().equals(parent)) {

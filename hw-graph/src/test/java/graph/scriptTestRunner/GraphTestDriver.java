@@ -13,7 +13,6 @@ package graph.scriptTestRunner;
 
 import graph.Edge;
 import graph.Graph;
-import graph.Node;
 
 import java.io.*;
 import java.util.*;
@@ -136,7 +135,7 @@ public class GraphTestDriver {
 
     private void addNode(String graphName, String nodeName) {
         // TODO Insert your code here.
-        Node node1 = new Node(nodeName);
+        String node1 = nodeName;
         Graph graph1 = graphs.get(graphName);
         graph1.addNode(node1);
         graphs.replace(graphName, graph1);
@@ -183,12 +182,12 @@ public class GraphTestDriver {
     private void listNodes(String graphName) {
         // TODO Insert your code here.
         Graph graph1 = graphs.get(graphName);
-        List<Node> list = new ArrayList<>();
+        List<String> list = new ArrayList<>();
         List<String> stringList = new ArrayList<>();
         Collections.sort(stringList);
         list = graph1.listNodes();
         for (int i = 0; i < list.size(); i++) {
-            stringList.add(list.get(i).getLabel());
+            stringList.add(list.get(i));
         }
         boolean f = true;
         StringBuilder res = new StringBuilder();
@@ -218,13 +217,13 @@ public class GraphTestDriver {
     private void listChildren(String graphName, String parentName) {
         // TODO Insert your code here.
         Graph graph1 = graphs.get(graphName);
-        Node p = graph1.getNode(parentName);
-        List<Node> list = new ArrayList<>();
+        String p = graph1.getNode(parentName);
+        List<String> list = new ArrayList<>();
         List<String> stringList = new ArrayList<>();
         Collections.sort(stringList);
         list = graph1.listChildren(p);
         for (int i = 0; i < list.size(); i++) {
-            stringList.add(list.get(i).getLabel());
+            stringList.add(list.get(i));
         }
         boolean f = true;
         StringBuilder res = new StringBuilder();

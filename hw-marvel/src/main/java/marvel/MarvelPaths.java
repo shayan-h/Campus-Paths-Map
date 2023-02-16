@@ -2,7 +2,6 @@ package marvel;
 
 import graph.Edge;
 import graph.Graph;
-import graph.Node;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +14,7 @@ public class MarvelPaths {
     // Fields
 
 
-    public void createGraph(String filename) {
+    public static Graph createGraph(String filename) {
         Graph graph = new Graph();
         HashMap<String, HashSet<String>> tempMap = new HashMap<>();
         tempMap = parseData(filename);
@@ -34,7 +33,7 @@ public class MarvelPaths {
         // Adds each of the characters from the characters list to the graph as nodes.
         for (String s : characters) {
             if (!s.startsWith("$")) {
-                graph.addNode(new Node(s));
+                graph.addNode(s);
             }
         }
 
@@ -53,15 +52,6 @@ public class MarvelPaths {
                 }
             }
         }
-
-
-
-
-
-
-
-
-
-
+        return graph;
     }
 }

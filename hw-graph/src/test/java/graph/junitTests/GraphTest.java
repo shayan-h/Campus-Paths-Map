@@ -2,7 +2,6 @@ package graph.junitTests;
 
 import graph.Edge;
 import graph.Graph;
-import graph.Node;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -18,16 +17,16 @@ public class GraphTest {
     public void listNodesTest() {
         Graph graph1 = new Graph();
         assertEquals("Graph did not list:", java.util.Collections.emptyList(), graph1.listNodes());
-        Node n1 = new Node("n1");
+        String n1 = "n1";
         graph1.addNode(n1);
-        List<Node> list = new ArrayList<>();
+        List<String> list = new ArrayList<>();
         list.add(n1);
         assertEquals("Graph did not list: n1", list, graph1.listNodes());
-        Node n2 = new Node("n2");
+        String n2 = "n2";
         graph1.addNode(n2);
         list.add(n2);
         assertEquals("Graph did not list: n1, n2", list, graph1.listNodes());
-        Node n3 = new Node("n3");
+        String n3 = "n3";
         graph1.addNode(n3);
         list.add(n3);
         assertEquals("Graph did not list: n1, n2, n3", list, graph1.listNodes());
@@ -40,11 +39,11 @@ public class GraphTest {
     public void sizeTest() {
         assertEquals("Graph size should be 0", 0,new Graph().size());
         Graph graph1 = new Graph();
-        Node n1 = new Node("n1");
+        String n1 = "n1";
         graph1.addNode(n1);
         assertEquals("Graph size should be 1", 1,graph1.size());
         Graph graph2 = new Graph();
-        Node n2 = new Node("n2");
+        String n2 = "n2";
         graph2.addNode(n1);
         graph2.addNode(n2);
         assertEquals("Graph size should be 2", 2,graph2.size());
@@ -56,10 +55,10 @@ public class GraphTest {
     @Test
     public void addEdgetest() {
         Graph graph1 = new Graph();
-        Node n1 = new Node("n1");
-        Node n2 = new Node("n2");
-        Node n3 = new Node("n3");
-        Node n4 = new Node("n4");
+        String n1 = "n1";
+        String n2 = "n2";
+        String n3 = "n3";
+        String n4 = "n4";
         Edge e1 = new Edge("e1", n1, n2);
         graph1.addNode(n1);
         graph1.addNode(n2);
@@ -79,9 +78,9 @@ public class GraphTest {
     @Test
     public void listChildrenTest() {
         Graph graph1 = new Graph();
-        List<Node> list = new ArrayList<>();
-        Node p = new Node("parent");
-        Node c = new Node("child");
+        List<String> list = new ArrayList<>();
+        String p = "parent";
+        String c = "child";
         Edge e = new Edge("e1", p, c);
         Edge e7 = new Edge("e7", c, p);
         graph1.addNode(p);
@@ -91,8 +90,8 @@ public class GraphTest {
         assertEquals("listChildren should return: child", list, graph1.listChildren(p));
         list.clear();
         assertEquals("listChildren should return:", list, graph1.listChildren(c));
-        Node c2 = new Node("child2");
-        Node c3 = new Node("child3");
+        String c2 = "child2";
+        String c3 = "child3";
         Edge e2 = new Edge("e2", p, c2);
         Edge e3 = new Edge("e3", p, c3);
         graph1.addNode(c2);
@@ -111,7 +110,7 @@ public class GraphTest {
     @Test
     public void getNodeTest() {
         Graph graph1 = new Graph();
-        Node n1 = new Node("parent");
+        String n1 = "parent";
         graph1.addNode(n1);
         assertEquals("getNode should return: parent", n1, graph1.getNode("parent"));
     }
@@ -122,8 +121,8 @@ public class GraphTest {
     @Test
     public void getEdgeTest() {
         Graph graph1 = new Graph();
-        Node n1 = new Node("parent");
-        Node n2 = new Node("child");
+        String n1 = "parent";
+        String n2 = "child";
         graph1.addNode(n1);
         graph1.addNode(n2);
         Edge e1 = new Edge("e1", n1, n2);
