@@ -51,7 +51,7 @@ public class Graph {
      */
     private void checkRep() {
         assert (nodes != null || allGraph != null): "Graph is null";
-        /*
+
         if (DEBUG) {
             for (int i = 0; i < edges.size(); i++) {
                 assert (nodes.contains(edges.get(i).getOutgoingNode()) ||
@@ -67,7 +67,7 @@ public class Graph {
                 }
             }
         }
-         */
+
     }
 
     /**
@@ -99,37 +99,12 @@ public class Graph {
      * @return True if Edge is added to Graph and false otherwise.
      */
     public boolean addEdge(Edge edge) {
-        /*
-        boolean validOut = false;
-        boolean validIn = false;
-        for (int i = 0; i < nodes.size(); i++) {
-            if (edge.getOutgoingNode().equals(nodes.get(i))) {
-                validOut = true;
-                break;
-            } else {
-                validOut = false;
-            }
-        }
-        for (int i = 0; i < nodes.size(); i++) {
-            if (edge.getIncomingNode().equals(nodes.get(i))) {
-                validIn = true;
-                break;
-            } else {
-                validIn = false;
-            }
-        }
-         */
-        // if (validIn == true && validOut == true) {
             if (!allGraph.containsKey(edge.getOutgoingNode())) {
                 allGraph.put(edge.getOutgoingNode(), new HashSet<>());
             }
                allGraph.get(edge.getOutgoingNode()).add(edge);
             edges.add(edge);
            return true;
-        // } else {
-            // return false;
-        // }
-        // throw new RuntimeException("addEdge has not yet been implemented");
     }
 
     /**
@@ -143,8 +118,6 @@ public class Graph {
         return list;
         // throw new RuntimeException("listNodes has not yet been implemented");
     }
-
-
 
     /**
      * Returns the number of Nodes in this Graph.
@@ -173,22 +146,6 @@ public class Graph {
      * @return Returns a list of children Node(s) of the parent Node.
      */
     public List<String> listChildren(String node) {
-        /*
-        checkRep();
-        List<Edge> list = edges;
-        List<String> stringList = new ArrayList<>();
-        if (!this.nodes.contains(node)) {
-            return stringList;
-        } else {
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getOutgoingNode().equals(node)) {
-                    stringList.add(list.get(i).getIncomingNode());
-                }
-            }
-        }
-        checkRep();
-        return stringList;
-         */
         List<String> result = new ArrayList<String>();
         if(allGraph.get(node) != null) {
             List<Edge> ed = new ArrayList<>(allGraph.get(node));
@@ -217,15 +174,21 @@ public class Graph {
     }
 
     /**
-     * Gets an Edge given the Edge's parent node.
+     * Gets all edges from a given parent node.
      *
-     * @param parent to retrieve the Edge.
-     * @return the Edge with the given parent node.
+     * @param parent parent node.
+     * @return returns a hashset of edges.
      */
     public Set<Edge> getAllEdges(String parent) {
         return allGraph.get(parent);
     }
 
+    /**
+     * Gets an Edge given the Edge's parent node.
+     *
+     * @param parent to retrieve the Edge.
+     * @return the Edge with the given parent node.
+     */
     public Edge getEdge(String parent) {
         List<Edge> list = edges;
         for (int i = 0; i < list.size(); i++) {

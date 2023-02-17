@@ -1,3 +1,12 @@
 Briefly list any changes you made to your graph class during hw-marvel,
 and why you made those changes.
 
+Removed Node because it was already essentially a repetition of a string.
+
+Changed Graph into a Hashmap of nodes as keys and a list of edges as the values because
+of time complexity issues in the BFS implementation. (Basically trying to cut down as
+many for loops as possible).
+
+Added a getAllEdges method to graph to easily access all edges associated with a given
+node to easily implement BFS.
+

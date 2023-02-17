@@ -13,6 +13,13 @@ public class MarvelPaths {
     // Fields
 
 
+    /**
+     * Creats graph using filename.
+     *
+     * @param filename name of the file csv.
+     * @return a graph.
+     * @spec.requires filename != null
+     */
     public static Graph createGraph(String filename) {
         Graph graph = new Graph();
         HashMap<String, HashSet<String>> tempMap = new HashMap<>();
@@ -54,6 +61,14 @@ public class MarvelPaths {
         return graph;
     }
 
+    /**
+     * Find paths from start node to end node.
+     *
+     * @param startNode start node.
+     * @param destNode end node.
+     * @param graph graph.
+     * @return return a list of edges between start and end node.
+     */
     public static List<Edge> findPath(String startNode, String destNode, Graph graph) {
         if (graph == null) {
             return new ArrayList<>();

@@ -1,0 +1,8 @@
+CreateGraph g
+
+AddNode g n
+AddNode g n1
+
+FindPath g x n1
+
+FindPath g l s

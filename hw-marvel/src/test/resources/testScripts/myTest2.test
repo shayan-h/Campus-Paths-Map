@@ -1,0 +1,5 @@
+LoadGraph marvel marvel.csv
+
+FindPath marvel IRON-MAN/TONY-STARK KANGAROO-II
+
+FindPath marvel SILAS-GRANT ODIN-[ASGARDIAN]

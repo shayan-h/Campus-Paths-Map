@@ -6,6 +6,8 @@ import static marvel.MarvelParser.parseData;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import static marvel.MarvelPaths.createGraph;
+import static marvel.MarvelPaths.findPath;
 import static org.junit.Assert.*;
 
 public class MarvelParserTest {
@@ -27,7 +29,7 @@ public class MarvelParserTest {
         map.put("Captain-America-1", new HashSet<String>());
         map.get("Captain-America-1").add("Captain-America");
         map.put("Avengers", new HashSet<String>());
-        map.get("Avengers").add("Iron-Man");
+        map.get("Avengers").add("Hulk");
         map.get("Avengers").add("Black-Widow");
         map.get("Avengers").add("Captain-America");
         map.get("Avengers").add("Hawkeye");
