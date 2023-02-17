@@ -14,7 +14,7 @@ public class Graph {
     // Fields
 
     private List<String> nodes;
-    // private List<Edge> edges;
+    private List<Edge> edges;
     private HashMap<String, Set<Edge>> allGraph;
     public static final boolean DEBUG = false;
 
@@ -40,6 +40,7 @@ public class Graph {
      */
     public Graph() {
         nodes = new ArrayList<>();
+        edges = new ArrayList<>();
         allGraph = new HashMap<>();
         checkRep();
         // throw new RuntimeException("Graph has not yet been implemented");
@@ -119,12 +120,11 @@ public class Graph {
         }
          */
         // if (validIn == true && validOut == true) {
-           if (allGraph.containsKey(edge.getOutgoingNode())) {
+            if (!allGraph.containsKey(edge.getOutgoingNode())) {
+                allGraph.put(edge.getOutgoingNode(), new HashSet<>());
+            }
                allGraph.get(edge.getOutgoingNode()).add(edge);
-           } else {
-               allGraph.put(edge.getOutgoingNode(), new HashSet<>());
-               allGraph.get(edge.getOutgoingNode()).add(edge);
-           }
+            edges.add(edge);
            return true;
         // } else {
             // return false;
@@ -142,14 +142,6 @@ public class Graph {
         List<String> list = new ArrayList<>(nodes);
         return list;
         // throw new RuntimeException("listNodes has not yet been implemented");
-    }
-
-    public List<Edge> listEdges() {
-        List<Edge> list = new ArrayList<>();
-        for (String s : allGraph.keySet()) {
-            list.addAll(allGraph.get(s));
-        }
-        return list;
     }
 
 
@@ -181,8 +173,9 @@ public class Graph {
      * @return Returns a list of children Node(s) of the parent Node.
      */
     public List<String> listChildren(String node) {
+        /*
         checkRep();
-        List<Edge> list = listEdges();
+        List<Edge> list = edges;
         List<String> stringList = new ArrayList<>();
         if (!this.nodes.contains(node)) {
             return stringList;
@@ -195,6 +188,15 @@ public class Graph {
         }
         checkRep();
         return stringList;
+         */
+        List<String> result = new ArrayList<String>();
+        if(allGraph.get(node) != null) {
+            List<Edge> ed = new ArrayList<>(allGraph.get(node));
+            for (Edge e : ed) {
+                result.add(e.getIncomingNode() + "(" + e.getLabel() + ")");
+            }
+        }
+        return result;
     }
 
     /**
@@ -221,19 +223,11 @@ public class Graph {
      * @return the Edge with the given parent node.
      */
     public Set<Edge> getAllEdges(String parent) {
-        checkRep();
-        Set<Edge> edges = new HashSet<>();
-        List<Edge> list = listEdges();
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getOutgoingNode().equals(parent)) {
-                edges.add(list.get(i));
-            }
-        }
-        return edges;
+        return allGraph.get(parent);
     }
 
     public Edge getEdge(String parent) {
-        List<Edge> list = listEdges();
+        List<Edge> list = edges;
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getOutgoingNode().equals(parent)) {
                 return list.get(i);

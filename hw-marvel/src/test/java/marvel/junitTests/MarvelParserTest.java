@@ -1,5 +1,6 @@
 package marvel.junitTests;
 
+import graph.Graph;
 import org.junit.Test;
 import static marvel.MarvelParser.parseData;
 import java.util.HashMap;

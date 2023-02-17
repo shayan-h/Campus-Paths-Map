@@ -78,6 +78,7 @@ public class MarvelTestDriver {
                     break;
                 case "CreateGraph":
                     createGraph2(arguments);
+                    break;
                 case "FindPath":
                     makePath(arguments);
                     break;
@@ -89,6 +90,7 @@ public class MarvelTestDriver {
                     break;
                 case "ListChildren":
                     listChildren(arguments);
+                    break;
                 default:
                     output.println("Unrecognized command: " + command);
                     break;
@@ -107,7 +109,7 @@ public class MarvelTestDriver {
         }
 
         String graphName = arguments.get(0);
-        createGraph(graphName);
+        createGraph2(graphName);
     }
 
     private void createGraph2(String graphName) {
@@ -118,7 +120,7 @@ public class MarvelTestDriver {
     }
 
     private void makeGraph(List<String> arguments) {
-        if(arguments.size() != 1) {
+        if(arguments.size() != 2) {
             throw new CommandException("Bad arguments to CreateGraph: " + arguments);
         }
 
@@ -183,7 +185,7 @@ public class MarvelTestDriver {
     }
 
     private void makePath(List<String> arguments) {
-        if(arguments.size() != 2) {
+        if(arguments.size() != 3) {
             throw new CommandException("Bad arguments to AddNode: " + arguments);
         }
 
@@ -196,27 +198,29 @@ public class MarvelTestDriver {
 
     private void makePath(String graphName, String node1, String node2) {
         Graph graph = graphs.get(graphName);
+        List<Edge> list = findPath(node1, node2, graph);
+        if (!(list.isEmpty()) && graph.listNodes().contains(node1) && graph.listNodes().contains(node2)) {
+            output.println("path from " + node1 + " to " + node2 + ":");
+            for (int i = 0; i < list.size(); i++) {
+                output.println(list.get(i).getOutgoingNode() + " to " + list.get(i).getIncomingNode()
+                        + " via " + list.get(i).getLabel());
+            }
+        } else if (list.isEmpty() && graph.listNodes().contains(node1) && graph.listNodes().contains(node2)) {
+            output.println("path from " + node1 + " to " + node2 + ":");
+            if (!node1.equals(node2)) {
+                output.println("no path found");
+            }
+        }
+
         if (!graph.listNodes().contains(node1)) {
             output.println("unknown: " + node1);
         }
         if (!graph.listNodes().contains(node2)) {
             output.println("unknown: " + node2);
         }
-        if (!(graph.listNodes().contains(node1)) && !(graph.listNodes().contains(node2))) {
-            output.println("unknown: " + node1);
-            output.println("unknown: " + node2);
-        }
-        List<Edge> list = findPath(node1, node2, graph);
-        output.println("path from " + node1 + " to " + node2 + ":");
-        if (list == null) {
-            output.println("no path found");
-        }
-        for (int i = 0; i < list.size(); i++) {
-            output.println(list.get(i).getOutgoingNode() + " to " + list.get(i).getIncomingNode()
-            + " via " + list.get(i).getLabel());
-        }
         graphs.put(graphName, graph);
     }
+    //  + "(" + graph1.getEdge(p).getLabel() + ")"
 
     private void listChildren(List<String> arguments) {
         if(arguments.size() != 2) {
@@ -234,11 +238,13 @@ public class MarvelTestDriver {
         String p = graph1.getNode(parentName);
         List<String> list = new ArrayList<>();
         List<String> stringList = new ArrayList<>();
-        Collections.sort(stringList);
+       //  Collections.sort(stringList);
         list = graph1.listChildren(p);
+       //  Collections.sort(list);
         for (int i = 0; i < list.size(); i++) {
             stringList.add(list.get(i));
         }
+        Collections.sort(stringList);
         boolean f = true;
         StringBuilder res = new StringBuilder();
         for (String n : stringList) {
@@ -250,7 +256,7 @@ public class MarvelTestDriver {
             }
         }
         graphs.put(graphName, graph1);
-        output.println("the children of " + parentName + " in " + graphName + " are: " + res + "(" + graph1.getEdge(p).getLabel() + ")");
+        output.println("the children of " + parentName + " in " + graphName + " are: " + res);
     }
 
     static class CommandException extends RuntimeException {

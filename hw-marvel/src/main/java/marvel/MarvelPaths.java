@@ -75,7 +75,10 @@ public class MarvelPaths {
                 return path.get(node);
             } else {
                 Set<Edge> paths = graph.getAllEdges(node);
-                List<Edge> listPaths = new ArrayList<>(paths);
+                if (paths == null) {
+                    paths = new HashSet<>();
+                }
+                List<Edge> listPaths = new ArrayList<>(Objects.requireNonNull(paths));
                 Collections.sort(listPaths, new Comparator<Edge>() {
                     @Override
                     public int compare(Edge o1, Edge o2) {
