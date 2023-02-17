@@ -10,7 +10,7 @@ public class MarvelMain {
 
     public static void main(String[] args) {
         Graph graph = createGraph("marvel.csv");
-        List<String> list = graph.listChildren("HULK");
+        List<String> list = graph.listChildren("HULK/DR.-ROBERT-BRUC");
         System.out.println(Arrays.toString(list.toArray()));
     }
 }

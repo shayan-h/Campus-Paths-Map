@@ -4,9 +4,11 @@ import graph.Edge;
 import graph.Graph;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static marvel.MarvelPaths.findPath;
 import static org.junit.Assert.*;
 import static marvel.MarvelPaths.createGraph;
 
@@ -117,5 +119,25 @@ public class MarvelPathstest {
         graph.addEdge(e2);
         Graph mcuGraph = createGraph(filename);
         assertEquals("Children do not match:", graph.listChildren(n1), mcuGraph.listChildren(n1));
+    }
+
+    @Test
+    public void findPathsTest() {
+        Graph graph = new Graph();
+        String n1 = "Iron-Man";
+        String n2 = "Black-Widow";
+        String n3 = "Hulk";
+        Edge e1 = new Edge("Iron-Man-2", n1, n2);
+        // Edge e2 = new Edge("Iron-Man-2", n2, n1);
+        Edge e3 = new Edge("Avengers", n2, n3);
+        graph.addNode(n1);
+        graph.addNode(n2);
+        graph.addNode(n3);
+        graph.addEdge(e1);
+        graph.addEdge(e3);
+        List<Edge> list = new ArrayList<>();
+        list.add(e1);
+        list.add(e3);
+        assertEquals("Lists do not match: ", list, findPath(n1, n3, graph));
     }
 }

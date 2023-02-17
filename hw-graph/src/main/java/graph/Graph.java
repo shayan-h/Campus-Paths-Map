@@ -1,8 +1,6 @@
 package graph;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * <b>Graph</b> represents an <b>immutable</b> combination of Nodes and Edges in the form of two separate
@@ -16,7 +14,8 @@ public class Graph {
     // Fields
 
     private List<String> nodes;
-    private List<Edge> edges;
+    // private List<Edge> edges;
+    private HashMap<String, Set<Edge>> allGraph;
     public static final boolean DEBUG = false;
 
     // Abstraction Function:
@@ -41,7 +40,7 @@ public class Graph {
      */
     public Graph() {
         nodes = new ArrayList<>();
-        edges = new ArrayList<>();
+        allGraph = new HashMap<>();
         checkRep();
         // throw new RuntimeException("Graph has not yet been implemented");
     }
@@ -50,7 +49,8 @@ public class Graph {
      * Checks the representation invariant for the Graph class.
      */
     private void checkRep() {
-        assert (nodes != null || edges != null): "Nodes or Edges is null";
+        assert (nodes != null || allGraph != null): "Graph is null";
+        /*
         if (DEBUG) {
             for (int i = 0; i < edges.size(); i++) {
                 assert (nodes.contains(edges.get(i).getOutgoingNode()) ||
@@ -66,6 +66,7 @@ public class Graph {
                 }
             }
         }
+         */
     }
 
     /**
@@ -118,7 +119,12 @@ public class Graph {
         }
          */
         // if (validIn == true && validOut == true) {
-            edges.add(edge);
+           if (allGraph.containsKey(edge.getOutgoingNode())) {
+               allGraph.get(edge.getOutgoingNode()).add(edge);
+           } else {
+               allGraph.put(edge.getOutgoingNode(), new HashSet<>());
+               allGraph.get(edge.getOutgoingNode()).add(edge);
+           }
            return true;
         // } else {
             // return false;
@@ -138,6 +144,16 @@ public class Graph {
         // throw new RuntimeException("listNodes has not yet been implemented");
     }
 
+    public List<Edge> listEdges() {
+        List<Edge> list = new ArrayList<>();
+        for (String s : allGraph.keySet()) {
+            list.addAll(allGraph.get(s));
+        }
+        return list;
+    }
+
+
+
     /**
      * Returns the number of Nodes in this Graph.
      *
@@ -156,7 +172,7 @@ public class Graph {
      */
     public void clearGraph() {
         this.nodes.clear();
-        this.edges.clear();
+        allGraph.clear();
     }
 
     /**
@@ -166,18 +182,19 @@ public class Graph {
      */
     public List<String> listChildren(String node) {
         checkRep();
-        List<String> list = new ArrayList<>();
+        List<Edge> list = listEdges();
+        List<String> stringList = new ArrayList<>();
         if (!this.nodes.contains(node)) {
-            return list;
+            return stringList;
         } else {
-            for (int i = 0; i < this.edges.size(); i++) {
-                if (this.edges.get(i).getOutgoingNode().equals(node)) {
-                    list.add(this.edges.get(i).getIncomingNode());
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getOutgoingNode().equals(node)) {
+                    stringList.add(list.get(i).getIncomingNode());
                 }
             }
         }
         checkRep();
-        return list;
+        return stringList;
     }
 
     /**
@@ -203,12 +220,23 @@ public class Graph {
      * @param parent to retrieve the Edge.
      * @return the Edge with the given parent node.
      */
-    public Edge getEdge(String parent) {
+    public Set<Edge> getAllEdges(String parent) {
         checkRep();
-        for (int i = 0; i < edges.size(); i++) {
-            if (edges.get(i).getOutgoingNode().equals(parent)) {
-                checkRep();
-                return edges.get(i);
+        Set<Edge> edges = new HashSet<>();
+        List<Edge> list = listEdges();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getOutgoingNode().equals(parent)) {
+                edges.add(list.get(i));
+            }
+        }
+        return edges;
+    }
+
+    public Edge getEdge(String parent) {
+        List<Edge> list = listEdges();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getOutgoingNode().equals(parent)) {
+                return list.get(i);
             }
         }
         return null;

@@ -2,11 +2,10 @@ package marvel;
 
 import graph.Edge;
 import graph.Graph;
+import org.w3c.dom.Node;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
+
 import static marvel.MarvelParser.parseData;
 
 public class MarvelPaths {
@@ -53,5 +52,51 @@ public class MarvelPaths {
             }
         }
         return graph;
+    }
+
+    public static List<Edge> findPath(String startNode, String destNode, Graph graph) {
+        if (graph == null) {
+            return new ArrayList<>();
+        } else if (startNode == null || destNode == null){
+            return new ArrayList<>();
+        }else if (!(graph.listNodes().contains(startNode)) || !(graph.listNodes().contains(destNode))){
+            return new ArrayList<>();
+        }
+
+        Queue<String> checkList = new LinkedList<>();
+        Map<String, List<Edge>> path = new HashMap<>();
+
+        checkList.add(startNode);
+        List<Edge> temp = new ArrayList<>();
+        path.put(startNode, temp);
+        while (!checkList.isEmpty()) {
+            String node = checkList.remove();
+            if (node.equals(destNode)) {
+                return path.get(node);
+            } else {
+                Set<Edge> paths = graph.getAllEdges(node);
+                List<Edge> listPaths = new ArrayList<>(paths);
+                Collections.sort(listPaths, new Comparator<Edge>() {
+                    @Override
+                    public int compare(Edge o1, Edge o2) {
+                        if (!o1.getIncomingNode().equals(o2.getIncomingNode())) {
+                            return o1.getIncomingNode().compareTo(o2.getIncomingNode());
+                        } else if (!o1.getLabel().equals(o2.getLabel())) {
+                            return o1.getLabel().compareTo(o2.getLabel());
+                        }
+                        return 0;
+                    }
+                });
+                for (Edge p : listPaths) {
+                    if (!path.containsKey(p.getIncomingNode())) {
+                        List<Edge> currentPaths = new ArrayList<>(path.get(node));
+                        currentPaths.add(p);
+                        path.put(p.getIncomingNode(), currentPaths);
+                        checkList.add(p.getIncomingNode());
+                    }
+                }
+            }
+        }
+        return new ArrayList<>();
     }
 }
