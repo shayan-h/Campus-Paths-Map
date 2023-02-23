@@ -21,8 +21,8 @@ public class MarvelPathstest {
     @Test
     public void createGraphTest() {
         String filename = "marvel.csv";
-        Graph marvelGraph = createGraph(filename);
-        Graph graph = new Graph();
+        Graph<String, String> marvelGraph = createGraph(filename);
+        Graph<String, String> graph = new Graph<>();
         String venusii = "VENUS-II";
         String humanRobot = "HUMAN-ROBOT";
         String marvelboyiii = "MARVEL-BOY-III/ROBER";
@@ -35,30 +35,30 @@ public class MarvelPathstest {
         String antman = "ANT-MAN/DR.-HENRY-J.";
         String hawk = "HAWK";
         String pharaohramatut = "PHARAOH-RAMA-TUT";
-        Edge wi1 = new Edge("WI?-9", venusii, humanRobot);
-        Edge wi2 = new Edge("WI?-9", venusii, marvelboyiii);
-        Edge wi3 = new Edge("WI?-9", venusii, gorillaman);
-        Edge wi4 = new Edge("WI?-9", venusii, threedmancharles);
-        Edge avf1 = new Edge("AVF-4", venusii, humanRobot);
-        Edge avf2 = new Edge("AVF-4", venusii, gorillaman);
-        Edge avf3 = new Edge("AVF-4", venusii, richardmilhojones);
-        Edge avf4 = new Edge("AVF-4", venusii, threedmancharles);
-        Edge avf5 = new Edge("AVF-4", venusii, wasp);
-        Edge avf6 = new Edge("AVF-4", venusii, libragustav);
-        Edge avf7 = new Edge("AVF-4", venusii, cap);
-        Edge avf8 = new Edge("AVF-4", venusii, hawk);
-        Edge avf9 = new Edge("AVF-4", venusii, antman);
-        Edge avf10 = new Edge("AVF-4", venusii, marvelboyiii);
-        Edge avf11 = new Edge("AVF-5", venusii, marvelboyiii);
-        Edge avf12 = new Edge("AVF-5", venusii, richardmilhojones);
-        Edge avf13 = new Edge("AVF-5", venusii, pharaohramatut);
-        Edge avf14 = new Edge("AVF-5", venusii, gorillaman);
-        Edge avf15 = new Edge("AVF-5", venusii, humanRobot);
-        Edge avf16 = new Edge("AVF-5", venusii, cap);
-        Edge avf17 = new Edge("AVF-5", venusii, hawk);
-        Edge avf18 = new Edge("AVF-5", venusii, threedmancharles);
-        Edge avf19 = new Edge("AVF-5", venusii, antman);
-        Edge avf20 = new Edge("AVF-5", venusii, wasp);
+        Edge<String, String> wi1 = new Edge<>("WI?-9", venusii, humanRobot);
+        Edge<String, String> wi2 = new Edge<>("WI?-9", venusii, marvelboyiii);
+        Edge<String, String> wi3 = new Edge<>("WI?-9", venusii, gorillaman);
+        Edge<String, String> wi4 = new Edge<>("WI?-9", venusii, threedmancharles);
+        Edge<String, String> avf1 = new Edge<>("AVF-4", venusii, humanRobot);
+        Edge<String, String> avf2 = new Edge<>("AVF-4", venusii, gorillaman);
+        Edge<String, String> avf3 = new Edge<>("AVF-4", venusii, richardmilhojones);
+        Edge<String, String> avf4 = new Edge<>("AVF-4", venusii, threedmancharles);
+        Edge<String, String> avf5 = new Edge<>("AVF-4", venusii, wasp);
+        Edge<String, String> avf6 = new Edge<>("AVF-4", venusii, libragustav);
+        Edge<String, String> avf7 = new Edge<>("AVF-4", venusii, cap);
+        Edge<String, String> avf8 = new Edge<>("AVF-4", venusii, hawk);
+        Edge<String, String> avf9 = new Edge<>("AVF-4", venusii, antman);
+        Edge<String, String> avf10 = new Edge<>("AVF-4", venusii, marvelboyiii);
+        Edge<String, String> avf11 = new Edge<>("AVF-5", venusii, marvelboyiii);
+        Edge<String, String> avf12 = new Edge<>("AVF-5", venusii, richardmilhojones);
+        Edge<String, String> avf13 = new Edge<>("AVF-5", venusii, pharaohramatut);
+        Edge<String, String> avf14 = new Edge<>("AVF-5", venusii, gorillaman);
+        Edge<String, String> avf15 = new Edge<>("AVF-5", venusii, humanRobot);
+        Edge<String, String> avf16 = new Edge<>("AVF-5", venusii, cap);
+        Edge<String, String> avf17 = new Edge<>("AVF-5", venusii, hawk);
+        Edge<String, String> avf18 = new Edge<>("AVF-5", venusii, threedmancharles);
+        Edge<String, String> avf19 = new Edge<>("AVF-5", venusii, antman);
+        Edge<String, String> avf20 = new Edge<>("AVF-5", venusii, wasp);
         graph.addNode(venusii);
         graph.addNode(marvelboyiii);
         graph.addNode(gorillaman);
@@ -108,34 +108,34 @@ public class MarvelPathstest {
     @Test
     public void createGraphMini() {
         String filename = "mcu.csv";
-        Graph graph = new Graph();
+        Graph<String, String> graph = new Graph<>();
         String n1 = ("Iron-Man");
         String n2 = ("Black-Widow");
-        Edge e1 = new Edge("Iron-Man-2", n1, n2);
-        Edge e2 = new Edge("Iron-Man-2", n2, n1);
+        Edge<String, String> e1 = new Edge<>("Iron-Man-2", n1, n2);
+        Edge<String, String> e2 = new Edge<>("Iron-Man-2", n2, n1);
         graph.addNode(n1);
         graph.addNode(n2);
         graph.addEdge(e1);
         graph.addEdge(e2);
-        Graph mcuGraph = createGraph(filename);
+        Graph<String, String> mcuGraph = createGraph(filename);
         assertEquals("Children do not match:", graph.listChildren(n1), mcuGraph.listChildren(n1));
     }
 
     @Test
     public void findPathsTest() {
-        Graph graph = new Graph();
+        Graph<String, String> graph = new Graph<>();
         String n1 = "Iron-Man";
         String n2 = "Black-Widow";
         String n3 = "Hulk";
-        Edge e1 = new Edge("Iron-Man-2", n1, n2);
+        Edge<String, String> e1 = new Edge<>("Iron-Man-2", n1, n2);
         // Edge e2 = new Edge("Iron-Man-2", n2, n1);
-        Edge e3 = new Edge("Avengers", n2, n3);
+        Edge<String, String> e3 = new Edge<>("Avengers", n2, n3);
         graph.addNode(n1);
         graph.addNode(n2);
         graph.addNode(n3);
         graph.addEdge(e1);
         graph.addEdge(e3);
-        List<Edge> list = new ArrayList<>();
+        List<Edge<String, String>> list = new ArrayList<>();
         list.add(e1);
         list.add(e3);
         assertEquals("Lists do not match: ", list, findPath(n1, n3, graph));

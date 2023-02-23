@@ -13,7 +13,7 @@ public class MarvelMain {
 
     public static void main(String[] args) {
         MarvelPaths marvelPaths = new MarvelPaths();
-        Graph graph = new Graph();
+        Graph<String, String> graph = new Graph<>();
         graph = createGraph("marvel.csv");
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -21,7 +21,7 @@ public class MarvelMain {
             String character1 = scanner.nextLine();
             System.out.print("Enter the name of the second character: ");
             String character2 = scanner.nextLine();
-            List<Edge> edges = marvelPaths.findPath(character1, character2, graph);
+            List<Edge<String, String>> edges = marvelPaths.findPath(character1, character2, graph);
             if (edges == null) {
                 System.out.println("No path found between " + character1 + " and " + character2);
             } else {
@@ -36,9 +36,9 @@ public class MarvelMain {
         scanner.close();
     }
 
-    public static List<String> edgesHelper(List<Edge> edges) {
+    public static List<String> edgesHelper(List<Edge<String, String>> edges) {
         List<String> list = new ArrayList<>();
-        for (Edge e : edges) {
+        for (Edge<String, String> e : edges) {
             list.add(e.getLabel());
         }
         return list;

@@ -6,12 +6,12 @@ package graph;
  * to or from the same two Nodes.
  */
 
-public class Edge {
+public class Edge<N, E> {
 
     // Fields
-    private String label;
-    private String outgoingNode;
-    private String incomingNode;
+    private E label;
+    private N outgoingNode;
+    private N incomingNode;
 
     // Abstract Function:
     // Edge e, represents a connection between a parent node and a child node.
@@ -32,7 +32,7 @@ public class Edge {
      * @spec.effects Creates a new Edge directed to and outgoing from Nodes. Incoming and Outgoing Node can
      * be the same.
      */
-    public Edge(String label, String outgoingNode, String incomingNode) {
+    public Edge(E label, N outgoingNode, N incomingNode) {
         this.label = label;
         this.outgoingNode = outgoingNode;
         this.incomingNode = incomingNode;
@@ -53,7 +53,7 @@ public class Edge {
      *
      * @return The String label associated with this Edge.
      */
-    public String getLabel() {
+    public E getLabel() {
         checkRep();
         return this.label;
         // throw new RuntimeException("getLabel has not yet been implemented");
@@ -65,7 +65,7 @@ public class Edge {
      * @param label String to replace the label of edge.
      * @spec.effects Replaces the label of this Edge with a new one.
      */
-    public void editLabel(String label) {
+    public void editLabel(E label) {
         checkRep();
         this.label = label;
         // throw new RuntimeException("editLabel has not yet been implemented");
@@ -75,7 +75,7 @@ public class Edge {
      *
      * @return Node that this Edge is incoming to otherwise known as the child Node.
      */
-    public String getIncomingNode() {
+    public N getIncomingNode() {
         checkRep();
         return this.incomingNode;
         // throw new RuntimeException("getIncomingNode has not yet been implemented");
@@ -86,7 +86,7 @@ public class Edge {
      *
      * @return Node that this Edge is outgoing from otherwise known as the parent Node.
      */
-    public String getOutgoingNode() {
+    public N getOutgoingNode() {
         checkRep();
         return this.outgoingNode;
         // throw new RuntimeException("getOutgoingNode has not yet been implemented");

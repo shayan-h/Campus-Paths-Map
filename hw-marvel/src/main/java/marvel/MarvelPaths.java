@@ -20,8 +20,8 @@ public class MarvelPaths {
      * @return a graph.
      * @spec.requires filename != null
      */
-    public static Graph createGraph(String filename) {
-        Graph graph = new Graph();
+    public static Graph<String, String> createGraph(String filename) {
+        Graph<String, String> graph = new Graph<>();
         HashMap<String, HashSet<String>> tempMap = new HashMap<>();
         tempMap = parseData(filename);
         HashMap<String, List<String>> charComic = new HashMap<>();
@@ -53,8 +53,8 @@ public class MarvelPaths {
                     j = characters.size();
                 }
                 else {
-                    graph.addEdge(new Edge(edgeLabel, graph.getNode(characters.get(i)), graph.getNode(characters.get(j))));
-                    graph.addEdge(new Edge(edgeLabel, graph.getNode(characters.get(j)), graph.getNode(characters.get(i))));
+                    graph.addEdge(new Edge<String, String>(edgeLabel, graph.getNode(characters.get(i)), graph.getNode(characters.get(j))));
+                    graph.addEdge(new Edge<String, String>(edgeLabel, graph.getNode(characters.get(j)), graph.getNode(characters.get(i))));
                 }
             }
         }
@@ -69,7 +69,7 @@ public class MarvelPaths {
      * @param graph graph.
      * @return return a list of edges between start and end node.
      */
-    public static List<Edge> findPath(String startNode, String destNode, Graph graph) {
+    public static List<Edge<String, String>> findPath(String startNode, String destNode, Graph<String, String> graph) {
         if (graph == null) {
             return new ArrayList<>();
         } else if (startNode == null || destNode == null){
@@ -79,24 +79,24 @@ public class MarvelPaths {
         }
 
         Queue<String> checkList = new LinkedList<>();
-        Map<String, List<Edge>> path = new HashMap<>();
+        Map<String, List<Edge<String, String>>> path = new HashMap<>();
 
         checkList.add(startNode);
-        List<Edge> temp = new ArrayList<>();
+        List<Edge<String, String>> temp = new ArrayList<>();
         path.put(startNode, temp);
         while (!checkList.isEmpty()) {
             String node = checkList.remove();
             if (node.equals(destNode)) {
                 return path.get(node);
             } else {
-                Set<Edge> paths = graph.getAllEdges(node);
+                Set<Edge<String, String>> paths = graph.getAllEdges(node);
                 if (paths == null) {
                     paths = new HashSet<>();
                 }
-                List<Edge> listPaths = new ArrayList<>(Objects.requireNonNull(paths));
-                Collections.sort(listPaths, new Comparator<Edge>() {
+                List<Edge<String, String>> listPaths = new ArrayList<>(Objects.requireNonNull(paths));
+                Collections.sort(listPaths, new Comparator<Edge<String, String>>() {
                     @Override
-                    public int compare(Edge o1, Edge o2) {
+                    public int compare(Edge<String, String> o1, Edge<String, String> o2) {
                         if (!o1.getIncomingNode().equals(o2.getIncomingNode())) {
                             return o1.getIncomingNode().compareTo(o2.getIncomingNode());
                         } else if (!o1.getLabel().equals(o2.getLabel())) {
@@ -105,9 +105,9 @@ public class MarvelPaths {
                         return 0;
                     }
                 });
-                for (Edge p : listPaths) {
+                for (Edge<String, String> p : listPaths) {
                     if (!path.containsKey(p.getIncomingNode())) {
-                        List<Edge> currentPaths = new ArrayList<>(path.get(node));
+                        List<Edge<String, String>> currentPaths = new ArrayList<>(path.get(node));
                         currentPaths.add(p);
                         path.put(p.getIncomingNode(), currentPaths);
                         checkList.add(p.getIncomingNode());

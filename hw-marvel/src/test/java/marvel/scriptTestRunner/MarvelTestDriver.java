@@ -30,7 +30,7 @@ import static marvel.MarvelPaths.findPath;
  */
 public class MarvelTestDriver {
 
-    private final Map<String, Graph> graphs = new HashMap<>();
+    private final Map<String, Graph<String, String>> graphs = new HashMap<>();
     private final PrintWriter output;
     private final BufferedReader input;
 
@@ -114,7 +114,7 @@ public class MarvelTestDriver {
 
     private void createGraph2(String graphName) {
         // TODO Insert your code here.
-        Graph graph1 = new Graph();
+        Graph<String, String> graph1 = new Graph<>();
         graphs.put(graphName, graph1);
         output.println("created graph " + graphName);
     }
@@ -131,7 +131,7 @@ public class MarvelTestDriver {
 
     private void makeGraph(String graphName, String filename) {
         // TODO Insert your code here.
-        Graph graph1 = createGraph(filename);
+        Graph<String, String> graph1 = createGraph(filename);
         graphs.put(graphName, graph1);
         output.println("loaded graph " + graphName);
     }
@@ -150,7 +150,7 @@ public class MarvelTestDriver {
     private void addNode(String graphName, String nodeName) {
         // TODO Insert your code here.
         String node1 = nodeName;
-        Graph graph1 = graphs.get(graphName);
+        Graph<String, String> graph1 = graphs.get(graphName);
         graph1.addNode(node1);
         graphs.replace(graphName, graph1);
         output.println("added node " + nodeName + " to " + graphName);
@@ -172,10 +172,10 @@ public class MarvelTestDriver {
     private void addEdge(String graphName, String parentName, String childName,
                          String edgeLabel) {
         // TODO Insert your code here.
-        Graph graph1 = graphs.get(graphName);
+        Graph<String, String> graph1 = graphs.get(graphName);
         // Node p = new Node(parentName);
         // Node c = new Node(childName);
-        Edge e = new Edge(edgeLabel, graph1.getNode(parentName), graph1.getNode(childName));
+        Edge<String, String> e = new Edge<>(edgeLabel, graph1.getNode(parentName), graph1.getNode(childName));
 
         // graph1.addNode(p);
         // graph1.addNode(c);
@@ -197,8 +197,8 @@ public class MarvelTestDriver {
     }
 
     private void makePath(String graphName, String node1, String node2) {
-        Graph graph = graphs.get(graphName);
-        List<Edge> list = findPath(node1, node2, graph);
+        Graph<String, String> graph = graphs.get(graphName);
+        List<Edge<String, String>> list = findPath(node1, node2, graph);
         if (!(list.isEmpty()) && graph.listNodes().contains(node1) && graph.listNodes().contains(node2)) {
             output.println("path from " + node1 + " to " + node2 + ":");
             for (int i = 0; i < list.size(); i++) {
@@ -234,7 +234,7 @@ public class MarvelTestDriver {
 
     private void listChildren(String graphName, String parentName) {
         // TODO Insert your code here.
-        Graph graph1 = graphs.get(graphName);
+        Graph<String, String> graph1 = graphs.get(graphName);
         String p = graph1.getNode(parentName);
         List<String> list = new ArrayList<>();
         List<String> stringList = new ArrayList<>();

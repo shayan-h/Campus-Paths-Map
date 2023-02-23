@@ -31,7 +31,7 @@ public class GraphTestDriver {
      * String -> Graph: maps the names of graphs to the actual graph
      **/
     // TODO for the student: Uncomment and parameterize the next line correctly:
-    private final Map<String, Graph> graphs = new HashMap<String, Graph>();
+    private final Map<String, Graph<String, String>> graphs = new HashMap<String, Graph<String, String>>();
     private final PrintWriter output;
     private final BufferedReader input;
 
@@ -117,7 +117,7 @@ public class GraphTestDriver {
 
     private void createGraph(String graphName) {
         // TODO Insert your code here.
-        Graph graph1 = new Graph();
+        Graph<String, String> graph1 = new Graph<>();
         graphs.put(graphName, graph1);
         output.println("created graph " + graphName);
     }
@@ -136,7 +136,7 @@ public class GraphTestDriver {
     private void addNode(String graphName, String nodeName) {
         // TODO Insert your code here.
         String node1 = nodeName;
-        Graph graph1 = graphs.get(graphName);
+        Graph<String, String> graph1 = graphs.get(graphName);
         graph1.addNode(node1);
         graphs.replace(graphName, graph1);
         output.println("added node " + nodeName + " to " + graphName);
@@ -158,10 +158,10 @@ public class GraphTestDriver {
     private void addEdge(String graphName, String parentName, String childName,
                          String edgeLabel) {
         // TODO Insert your code here.
-        Graph graph1 = graphs.get(graphName);
+        Graph<String, String> graph1 = graphs.get(graphName);
         // Node p = new Node(parentName);
         // Node c = new Node(childName);
-        Edge e = new Edge(edgeLabel, graph1.getNode(parentName), graph1.getNode(childName));
+        Edge<String, String> e = new Edge<>(edgeLabel, graph1.getNode(parentName), graph1.getNode(childName));
 
         // graph1.addNode(p);
         // graph1.addNode(c);
@@ -181,7 +181,7 @@ public class GraphTestDriver {
 
     private void listNodes(String graphName) {
         // TODO Insert your code here.
-        Graph graph1 = graphs.get(graphName);
+        Graph<String, String> graph1 = graphs.get(graphName);
         List<String> list = new ArrayList<>();
         List<String> stringList = new ArrayList<>();
         Collections.sort(stringList);
@@ -216,7 +216,7 @@ public class GraphTestDriver {
 
     private void listChildren(String graphName, String parentName) {
         // TODO Insert your code here.
-        Graph graph1 = graphs.get(graphName);
+        Graph<String, String> graph1 = graphs.get(graphName);
         String p = graph1.getNode(parentName);
         List<String> list = new ArrayList<>();
         List<String> stringList = new ArrayList<>();
@@ -236,7 +236,7 @@ public class GraphTestDriver {
             }
         }
         graphs.put(graphName, graph1);
-        output.println("the children of " + parentName + " in " + graphName + " are: " + res + "(" + graph1.getEdge(p).getLabel() + ")");
+        output.println("the children of " + parentName + " in " + graphName + " are: " + res /*+ "(" + graph1.getEdge(p).getLabel() + ")"*/);
     }
 
     /**
