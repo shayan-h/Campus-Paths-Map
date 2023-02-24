@@ -3,13 +3,15 @@ package pathfinder.datastructures;
 import graph.Edge;
 import graph.Graph;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.Comparator;
 
 public class DijkstrasAlgo {
 
 
     public static <N, E> Path<N> findShortestRoute(N start, N end, Graph<N, E> graph) {
-        PriorityQueue<Path<N>> active = new PriorityQueue<>();
+        PriorityQueue<Path<N>> active = new PriorityQueue<>(Comparator.comparing(Path::getCost));
         PriorityQueue<N> finished = new PriorityQueue<>();
 
         if (graph == null || !graph.listNodes().contains(start) || !graph.listNodes().contains(end)) {
@@ -29,7 +31,7 @@ public class DijkstrasAlgo {
             }
             for (N child : graph.listChildren(minDest)) {
                 if (!finished.contains(child)) {
-                    Path<N> newPath = minPath.extend(child, (Double) graph.getEdge(child).getLabel());
+                    Path<N> newPath = minPath.extend(child, (Double) graph.getEdge(minDest, child).getLabel());
                     active.add(newPath);
                 }
             }

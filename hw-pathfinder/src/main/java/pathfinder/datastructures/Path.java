@@ -20,7 +20,7 @@ import java.util.List;
  * Path#getStart() and Path#getEnd(). Also contains a cached
  * version of the total cost along this path, for efficient repeated access.
  */
-public class Path<N> implements Iterable<Path<N>.Segment<N>> {
+public class Path<N> implements Iterable<Path<N>.Segment> {
 
     // AF(this) =
     //      first point in the path => start
@@ -50,7 +50,7 @@ public class Path<N> implements Iterable<Path<N>.Segment<N>> {
     /**
      * The ordered sequence of segments representing a path between points.
      */
-    private List<Segment<N>> path;
+    private List<Segment> path;
 
     /**
      * Creates a new, empty path containing a start point. Essentially this represents a path
@@ -81,7 +81,7 @@ public class Path<N> implements Iterable<Path<N>.Segment<N>> {
         //
         Path<N> extendedPath = new Path<>(start);
         extendedPath.path.addAll(this.path);
-        extendedPath.path.add(new Segment<N>(this.getEnd(), newEnd, segmentCost));
+        extendedPath.path.add(new Segment(this.getEnd(), newEnd, segmentCost));
         extendedPath.cost = this.cost + segmentCost;
         //
         extendedPath.checkRep();
@@ -123,11 +123,11 @@ public class Path<N> implements Iterable<Path<N>.Segment<N>> {
      * UnsupportedOperationException if Iterator#remove() is called.
      */
     @Override
-    public Iterator<Segment<N>> iterator() {
+    public Iterator<Segment> iterator() {
         // Create a wrapping iterator to guarantee exceptional behavior on Iterator#remove.
-        return new Iterator<Segment<N>>() {
+        return new Iterator<Segment>() {
 
-            private Iterator<Path<N>.Segment<N>> backingIterator = path.iterator();
+            private Iterator<Path<N>.Segment> backingIterator = path.iterator();
 
             @Override
             public boolean hasNext() {
@@ -135,7 +135,7 @@ public class Path<N> implements Iterable<Path<N>.Segment<N>> {
             }
 
             @Override
-            public Path<N>.Segment<N> next() {
+            public Path<N>.Segment next() {
                 return backingIterator.next();
             }
 
@@ -155,7 +155,7 @@ public class Path<N> implements Iterable<Path<N>.Segment<N>> {
         assert Double.isFinite(cost);
         assert start != null;
         assert path != null;
-        for(Segment<N> segment : path) {
+        for(Segment segment : path) {
             assert segment != null;
         }
     }
@@ -200,7 +200,7 @@ public class Path<N> implements Iterable<Path<N>.Segment<N>> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(start.toString());
-        for(Segment<N> segment : path) {
+        for(Segment segment : path) {
             sb.append(" =(");
             sb.append(String.format("%.3f", segment.getCost()));
             sb.append(")=> ");
@@ -214,7 +214,7 @@ public class Path<N> implements Iterable<Path<N>.Segment<N>> {
      * Segments are immutable parts of a larger path that cannot be instantiated directly, and
      * are created as part of larger paths by calling Path#extend(Point, double).
      */
-    public class Segment<M> {
+    public class Segment {
 
         // AF(this) = the beginning of the path segment => start
         //            the end of the path segment => end
@@ -232,7 +232,7 @@ public class Path<N> implements Iterable<Path<N>.Segment<N>> {
         /**
          * The end of this segment.
          */
-        private final M end;
+        private final N end;
 
         /**
          * The cost of travelling this segment.
@@ -248,7 +248,7 @@ public class Path<N> implements Iterable<Path<N>.Segment<N>> {
          * @throws NullPointerException     if either point is null.
          * @throws IllegalArgumentException if cost is infinite or NaN
          */
-        private Segment(N start, M end, double cost) {
+        private Segment(N start, N end, double cost) {
             if(start == null || end == null) {
                 throw new NullPointerException("Segments cannot have null points.");
             }
@@ -274,7 +274,7 @@ public class Path<N> implements Iterable<Path<N>.Segment<N>> {
         /**
          * @return The ending point of this segment.
          */
-        public M getEnd() {
+        public N getEnd() {
             return this.end;
         }
 
@@ -303,10 +303,10 @@ public class Path<N> implements Iterable<Path<N>.Segment<N>> {
             if(this == obj) {
                 return true;
             }
-            if(!(obj instanceof Segment)) {
+            if(!(obj instanceof Path.Segment)) {
                 return false;
             }
-            Path<?>.Segment<?> other = (Path<?>.Segment<?>) obj;
+            Path<?>.Segment other = (Path<?>.Segment) obj;
             return other.getStart().equals(this.getStart())
                    && other.getEnd().equals(this.getEnd())
                    && (Double.compare(this.cost, other.cost) == 0);

@@ -189,12 +189,13 @@ public class Graph<N, E> {
      * @param parent to retrieve the Edge.
      * @return the Edge with the given parent node.
      */
-    public Edge<N, E> getEdge(N parent) {
+    public Edge<N, E> getEdge(N parent, N child) {
         List<Edge<N, E>> list = edges;
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getOutgoingNode().equals(parent)) {
+            if (list.get(i).getOutgoingNode().equals(parent) && list.get(i).getIncomingNode().equals(child)) {
                 return list.get(i);
             }
+
         }
         return null;
     }

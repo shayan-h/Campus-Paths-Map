@@ -1,0 +1,10 @@
+# Find a path with Dijkstra's algorithm when
+# the node is incoming to itself.
+
+CreateGraph simpleGraph
+
+AddNode simpleGraph A
+
+AddEdge simpleGraph A A 15.0
+
+FindPath simpleGraph A A
