@@ -1,8 +1,8 @@
 package graph;
 
 /**
- * <b>Graph</b> is an immutable object that has a label, and outgoing Node and incoming Node associated
- * with it. An Edge's incoming Node can be the same as it's outgoing Node. Multiple Edges can be directed
+ * <b>Edge</b> is an immutable object that has a label, and outgoing Node and incoming Node associated
+ * with it and takes in two generic type parameters. An Edge's incoming Node can be the same as it's outgoing Node. Multiple Edges can be directed
  * to or from the same two Nodes.
  */
 
@@ -26,9 +26,9 @@ public class Edge<N, E> {
     /**
      * Constructs a new Edge.
      *
-     * @param label String to assign label to Edge.
-     * @param outgoingNode Node to assign outgoing node to edge.
-     * @param incomingNode Node to assign incoming node to edge.
+     * @param label of generic type to assign label to Edge.
+     * @param outgoingNode Node of generic type to assign outgoing node to edge.
+     * @param incomingNode Node of generic type to assign incoming node to edge.
      * @spec.effects Creates a new Edge directed to and outgoing from Nodes. Incoming and Outgoing Node can
      * be the same.
      */
@@ -49,9 +49,9 @@ public class Edge<N, E> {
     }
 
     /**
-     * Gets the label given to this Edge.
+     * Gets the label of generic type given to this Edge.
      *
-     * @return The String label associated with this Edge.
+     * @return The generic type label associated with this Edge.
      */
     public E getLabel() {
         checkRep();
@@ -60,10 +60,10 @@ public class Edge<N, E> {
     }
 
     /**
-     * Assigns the label associated with this Edge to a new label given through the input.
+     * Assigns the label associated with this Edge to a new label of generic type given through the input.
      *
-     * @param label String to replace the label of edge.
-     * @spec.effects Replaces the label of this Edge with a new one.
+     * @param label of generic type to replace the label of edge.
+     * @spec.effects Replaces the label of this Edge with a new one of generic type.
      */
     public void editLabel(E label) {
         checkRep();
@@ -71,9 +71,9 @@ public class Edge<N, E> {
         // throw new RuntimeException("editLabel has not yet been implemented");
     }
 
-    /** Retrieves the Node that this Edge is incoming to.
+    /** Retrieves the Node of generic type that this Edge is incoming to.
      *
-     * @return Node that this Edge is incoming to otherwise known as the child Node.
+     * @return Node of generic type that this Edge is incoming to otherwise known as the child Node.
      */
     public N getIncomingNode() {
         checkRep();
@@ -82,9 +82,9 @@ public class Edge<N, E> {
     }
 
     /**
-     * Retrieves the Node that this Edge is outgoing from.
+     * Retrieves the Node of generic type that this Edge is outgoing from.
      *
-     * @return Node that this Edge is outgoing from otherwise known as the parent Node.
+     * @return Node of generic type that this Edge is outgoing from otherwise known as the parent Node.
      */
     public N getOutgoingNode() {
         checkRep();

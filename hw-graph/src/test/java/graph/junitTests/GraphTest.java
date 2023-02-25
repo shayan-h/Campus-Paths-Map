@@ -86,7 +86,7 @@ public class GraphTest {
         graph1.addNode(p);
         graph1.addNode(c);
         graph1.addEdge(e);
-        list.add(c + "(e1)");
+        list.add(c);
         assertEquals("listChildren should return: child", list, graph1.listChildren(p));
         list.clear();
         assertEquals("listChildren should return:", list, graph1.listChildren(c));
@@ -98,9 +98,9 @@ public class GraphTest {
         graph1.addNode(c3);
         graph1.addEdge(e2);
         graph1.addEdge(e3);
-        list.add(c + "(e2)");
-        list.add(c2 + "(e1)");
-        list.add(c3 + "(e3)");
+        list.add(c);
+        list.add(c2);
+        list.add(c3);
         assertEquals("listChildren should return: child1, child2, child3", list, graph1.listChildren(p));
     }
 
@@ -127,7 +127,7 @@ public class GraphTest {
         graph1.addNode(n2);
         Edge<String, String> e1 = new Edge<>("e1", n1, n2);
         graph1.addEdge(e1);
-        // assertEquals("getEdge should return: e1", e1, graph1.getEdge(n1));  FIX LATER
+        assertEquals("getEdge should return: e1", e1, graph1.getEdge(n1, n2));
     }
 
 }

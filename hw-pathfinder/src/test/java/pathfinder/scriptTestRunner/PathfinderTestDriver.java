@@ -79,6 +79,9 @@ public class PathfinderTestDriver {
                 case "FindPath":
                     findPath(arguments);
                     break;
+                case "ListChildren":
+                    listChildren(arguments);
+                    break;
                 default:
                     output.println("Unrecognized command: " + command);
                     break;
@@ -190,6 +193,43 @@ public class PathfinderTestDriver {
             }
 
         }
+    }
+
+    private void listChildren(List<String> arguments) {
+        if(arguments.size() != 2) {
+            throw new CommandException("Bad arguments to ListChildren: " + arguments);
+        }
+
+        String graphName = arguments.get(0);
+        String parentName = arguments.get(1);
+        listChildren(graphName, parentName);
+    }
+
+    private void listChildren(String graphName, String parentName) {
+        // TODO Insert your code here.
+        Graph<String, Double> graph1 = graphs.get(graphName);
+        String p = graph1.getNode(parentName);
+        List<String> list = new ArrayList<>();
+        List<String> stringList = new ArrayList<>();
+        //  Collections.sort(stringList);
+        list = graph1.listChildren(p);
+        //  Collections.sort(list);
+        for (int i = 0; i < list.size(); i++) {
+            stringList.add(list.get(i));
+        }
+        Collections.sort(stringList);
+        boolean f = true;
+        StringBuilder res = new StringBuilder();
+        for (String n : stringList) {
+            if (f == true) {
+                res.append(" " + n);
+                f = false;
+            } else {
+                res.append(" " + n);
+            }
+        }
+        graphs.put(graphName, graph1);
+        output.println("the children of " + parentName + " in " + graphName + " are: " + res);
     }
 
     static class CommandException extends RuntimeException {

@@ -3,9 +3,10 @@ package graph;
 import java.util.*;
 
 /**
- * <b>Graph</b> represents an <b>immutable</b> combination of Nodes and Edges in the form of two separate
- * lists, one for nodes and the other for graphs. Graph acts as a bridge between all Nodes
- * and Edges and does not allow an Edge to be added unless the Edge's outgoing and incoming node are in
+ * <b>Graph</b> represents an <b>immutable</b> combination of Nodes and Edges in the form of two
+ * lists, one for nodes and the other for Edges. It also includes a hashmap for the entire
+ * combination of edges in nodes in Graph. Graph is a generic class and takes in two generic parameters.
+ * Graph does not allow an Edge to be added unless the Edge's outgoing and incoming node are in
  * the Nodes list (only one node is required to be related to the Edge).
  */
 
@@ -19,18 +20,18 @@ public class Graph<N, E> {
     public static final boolean DEBUG = false;
 
     // Abstraction Function:
-    // Graph, gr, represents a list of Nodes and a list of associated Edges
-    // incoming to or from a Node:
+    // Graph, gr, represents a list of Nodes and a list of associated Edges and a hashmap of both.
+    // Incoming to or from a Node:
     // gr.nodes.get(i..n).contains(gr.edges.get(i..n).getOutgoingNode() && gr.edges.get(i..n).getIncomingNode())
     // || gr.edges.isEmpty()
     //
     //
     // Representation Invariant for every Graph gr:
-    // gr.nodes != null && gr.edges != null && gr.nodes.get(i).getLabel() != gr.nodes.get(0..i-1..n).getLabel()
+    // gr.allGraph != null && gr.nodes != null && gr.edges != null && gr.nodes.get(i).getLabel() != gr.nodes.get(0..i-1..n).getLabel()
     // && gr.nodes.contains(gr.edges.get(i).getOutgoingNode()) &&
     // gr.nodes.contains(gr.edges.get(i).getIncomingNode())
     // In other words:
-    // Nodes and Edges can't be null, a node's label has to be unique, and an edge's outgoing and
+    // Nodes and Edges can't be null, the graph hashmap can't be either, a node's label has to be unique, and an edge's outgoing and
     // incoming node must be in the graph. (the outgoing node and incoming node can be the same node).
 
     /**
@@ -50,7 +51,7 @@ public class Graph<N, E> {
      * Checks the representation invariant for the Graph class.
      */
     private void checkRep() {
-        assert (nodes != null || allGraph != null): "Graph is null";
+        assert (nodes != null || allGraph != null || allGraph != null): "Graph is null";
 
         if (DEBUG) {
             for (int i = 0; i < edges.size(); i++) {
@@ -73,7 +74,7 @@ public class Graph<N, E> {
     /**
      * Adds the given Node to Graph.
      *
-     * @param node Node to add to the Graph.
+     * @param node Node of generic type to add to the Graph.
      * @spec.effects Adds a Node to the list of Nodes in Graph.
      * @return True if Node is added to Graph and false otherwise.
      */
@@ -110,7 +111,7 @@ public class Graph<N, E> {
     /**
      * Returns a list of Nodes in this Graph.
      *
-     * @return List of Nodes.
+     * @return List of nodes represented by generic type.
      */
     public List<N> listNodes() {
         checkRep();
@@ -143,7 +144,8 @@ public class Graph<N, E> {
     /**
      * Returns a list of the given parent Node's children Node(s).
      *
-     * @return Returns a list of children Node(s) of the parent Node.
+     * @param node Parent node of generic type.
+     * @return Returns a list of children Node(s) of generic type of the parent Node.
      */
     public List<N> listChildren(N node) {
         List<N> result = new ArrayList<>();
@@ -159,8 +161,8 @@ public class Graph<N, E> {
     /**
      * Gets a Node given the Node's label.
      *
-     * @param label to retrieve the node.
-     * @return the Node with the given label.
+     * @param label of generic type to retrieve the node.
+     * @return the Node of generic type with the given label.
      */
     public N getNode(N label) {
         checkRep();
@@ -176,7 +178,7 @@ public class Graph<N, E> {
     /**
      * Gets all edges from a given parent node.
      *
-     * @param parent parent node.
+     * @param parent (generic type) parent node.
      * @return returns a hashset of edges.
      */
     public Set<Edge<N, E>> getAllEdges(N parent) {
@@ -184,15 +186,32 @@ public class Graph<N, E> {
     }
 
     /**
-     * Gets an Edge given the Edge's parent node.
+     * Gets an Edge given the Edge's parent node and child node of generic type.
      *
-     * @param parent to retrieve the Edge.
-     * @return the Edge with the given parent node.
+     * @param parent, child of generic type to retrieve the Edge.
+     * @return the Edge with the given parent node and child node.
      */
     public Edge<N, E> getEdge(N parent, N child) {
         List<Edge<N, E>> list = edges;
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getOutgoingNode().equals(parent) && list.get(i).getIncomingNode().equals(child)) {
+                return list.get(i);
+            }
+
+        }
+        return null;
+    }
+
+    /**
+     * Gets an Edge given the Edge's parent node of generic type.
+     *
+     * @param parent of generic type to retrieve the Edge.
+     * @return the Edge with the given parent node.
+     */
+    public Edge<N, E> getFirstEdge(N parent) {
+        List<Edge<N, E>> list = edges;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getOutgoingNode().equals(parent)) {
                 return list.get(i);
             }
 

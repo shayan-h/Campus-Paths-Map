@@ -249,10 +249,12 @@ public class MarvelTestDriver {
         StringBuilder res = new StringBuilder();
         for (String n : stringList) {
             if (f == true) {
-                res.append(" " + n);
+                res.append(" " + n + "(" + graph1.getEdge(p, n).getLabel() + ")");
                 f = false;
             } else {
-                res.append(" " + n);
+                    res.append(" " + n + "(" + graph1.getEdge(p, n).getLabel() + ")");
+
+
             }
         }
         graphs.put(graphName, graph1);

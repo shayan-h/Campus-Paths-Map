@@ -201,7 +201,7 @@ public class GraphTestDriver {
 
         }
         graphs.put(graphName, graph1);
-        output.println(graphName + " contains: " + res);
+        output.println(graphName + " contains:" + res);
     }
 
     private void listChildren(List<String> arguments) {
@@ -222,7 +222,7 @@ public class GraphTestDriver {
         List<String> stringList = new ArrayList<>();
         Collections.sort(stringList);
         list = graph1.listChildren(p);
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = list.size() - 1; i >= 0; i--) {
             stringList.add(list.get(i));
         }
         boolean f = true;
@@ -236,7 +236,7 @@ public class GraphTestDriver {
             }
         }
         graphs.put(graphName, graph1);
-        output.println("the children of " + parentName + " in " + graphName + " are: " + res /*+ "(" + graph1.getEdge(p).getLabel() + ")"*/);
+        output.println("the children of " + parentName + " in " + graphName + " are: " + res + "(" + graph1.getFirstEdge(p).getLabel() + ")");
     }
 
     /**
