@@ -22,6 +22,7 @@ const position: LatLngExpression = [UW_LATITUDE_CENTER, UW_LONGITUDE_CENTER];
 interface MapProps {
   // TODO: Define the props of this component. You will want to pass down edges
   // so you can render them here
+    // edges: Array<{x1: number, y1: number, x2: number}>
 }
 
 interface MapState {}
