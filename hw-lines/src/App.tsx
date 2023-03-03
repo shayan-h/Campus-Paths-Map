@@ -17,7 +17,7 @@ import { ColoredEdge } from "./types";
 // Allows us to write CSS styles inside App.css, any styles will apply to all components inside <App />
 import "./App.css";
 // import {constructor} from "react-scripts";
-// import edgeList from "./EdgeList";
+import edgeList from "./EdgeList";
 
 interface AppState {
     edgeData: ColoredEdge[];
@@ -45,17 +45,25 @@ class App extends Component<{}, AppState> { // <- {} means no props.
           onChange={(value) => {
             // TODO: Modify this onChange callback to store the edges in the state
               const coloredEdges: ColoredEdge[] = [];
-              value.forEach(edge => {
-                  const [x1, y1, x2, y2, color] = edge;
-                  coloredEdges.push({
-                      x1: Number(x1),
-                      y1: Number(y1),
-                      x2: Number(x2),
-                      y2: Number(y2),
-                      color: color
-                  });
-              });
-            this.setState({edgeData: coloredEdges});
+              for (let i = 0; i < value.length; i++) {
+                  const info = value[i].split(" ");
+                  if (info.length != 5) { // check to see if there are 5 arguments for each line
+                      alert("Not enough arguments");
+                      return;
+                  }
+                  if (!Number(info[0]) || !Number(info[1]) || !Number(info[2]) || !Number(info[3]) || Number(info[0]) < 0 || Number(info[1]) < 0 || Number(info[2]) < 0 || Number(info[3]) < 0 || Number(info[0]) > 4000 || Number(info[1]) > 4000 || Number(info[2]) > 4000 || Number(info[3]) > 4000) {
+                      alert("Arguments are not numbers or exceed the boundaries of (0,0) and (4000,4000)"); // check to see if arguments are numbers and whether they meet coordinate guidelines
+                      return;
+                  }
+                  coloredEdges.push({ // add each edge's property to the coloredEdges
+                      x1: Number(info[0]),
+                      y1: Number(info[1]),
+                      x2: Number(info[2]),
+                      y2: Number(info[3]),
+                      color: info[4]
+                  })
+              }
+            this.setState({edgeData: coloredEdges});  // update the set
             console.log("EdgeList onChange", value);
           }}
         />

@@ -33,7 +33,7 @@ class Map extends Component<MapProps, MapState> {
   render() {
       let edgeLines: JSX.Element[] = [];
       for (let i = 0; i < this.props.coloredEdges.length; i++) {
-          edgeLines.push(<MapLine key={"" + i} color={this.props.coloredEdges[i].color} x1={this.props.coloredEdges[i].x1} y1={this.props.coloredEdges[i].y1}
+          edgeLines.push(<MapLine key={"" + i} color={this.props.coloredEdges[i].color} x1={this.props.coloredEdges[i].x1} y1={this.props.coloredEdges[i].y1} // addings colorededges to the edgeLines
                                   x2={this.props.coloredEdges[i].x2} y2={this.props.coloredEdges[i].y2}/>);
       }
     return (

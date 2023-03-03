@@ -10,7 +10,6 @@
  */
 
 import React, {Component} from 'react';
-
 interface EdgeListState {
     input: string;
 }
@@ -20,15 +19,19 @@ interface EdgeListProps {
                                  // change the type of edges so it isn't `any`
 }
 
-interface EdgeType {
-    x1: number, y1: number, x2: number, y2: number, color: string;
-}
-
 /**
  * A text field that allows the user to enter the list of edges.
  * Also contains the buttons that the user will use to interact with the app.
  */
 class EdgeList extends Component<EdgeListProps, EdgeListState> {
+
+    constructor(props: any) {
+        super(props);
+        const text: string = "Enter coordinates";
+        this.state = {
+            input: text
+        }
+    }
     render() {
         return (
             <div id="edge-list">
@@ -39,17 +42,14 @@ class EdgeList extends Component<EdgeListProps, EdgeListState> {
                     onChange={(evt) => {this.setState({input: evt.target.value})}}
                     value={this.state.input}
                 /> <br/>
-                <button onClick={() => {console.log('Draw onClick was called');}}>Draw</button>
-                <button onClick={() => {console.log('Clear onClick was called');}}>Clear</button>
+                <button onClick={() => {this.drawPressed(this.state.input)}}>Draw</button>
+                <button onClick={() => {this.setState({input:""}); this.props.onChange([])}}>Clear</button>
             </div>
         );
     }
 
-    drawPressed = (text: string) => {
+    drawPressed = (text: string) => { // draw pressed function for when the draw button is pressed
         const lines = text.trim().split('\n');
-        const edgeList = lines.map(line => line.trim().split(' ')); // x1 y1
-
-        // const edges: EdgeType[] = [];
 
 
         this.props.onChange(lines);
