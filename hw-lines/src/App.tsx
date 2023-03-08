@@ -51,8 +51,12 @@ class App extends Component<{}, AppState> { // <- {} means no props.
                       alert("Not enough arguments");
                       return;
                   }
-                  if (!Number(info[0]) || !Number(info[1]) || !Number(info[2]) || !Number(info[3]) || Number(info[0]) < 0 || Number(info[1]) < 0 || Number(info[2]) < 0 || Number(info[3]) < 0 || Number(info[0]) > 4000 || Number(info[1]) > 4000 || Number(info[2]) > 4000 || Number(info[3]) > 4000) {
-                      alert("Arguments are not numbers or exceed the boundaries of (0,0) and (4000,4000)"); // check to see if arguments are numbers and whether they meet coordinate guidelines
+                  if ((!Number(info[0]) && info[0] != "0") || (!Number(info[1]) && info[1] != "0") || (!Number(info[2]) && info[2] != "0") || (!Number(info[3]) && info[3] != "0") || Number(info[0]) > 4000 || Number(info[1]) > 4000 || Number(info[2]) > 4000 || Number(info[3]) > 4000) {
+                      alert("Arguments are not numbers or exceed the boundaries of (4000,4000)"); // check to see if arguments are numbers and whether they meet coordinate guidelines
+                      return;
+                  }
+                  if (Number(info[0]) < 0 || Number(info[1]) < 0 || Number(info[2]) < 0 || Number(info[3]) < 0) {
+                      alert("Arguments exceed the boundaries of (0,0)"); // check to see if arguments are numbers and whether they meet coordinate guidelines
                       return;
                   }
                   coloredEdges.push({ // add each edge's property to the coloredEdges

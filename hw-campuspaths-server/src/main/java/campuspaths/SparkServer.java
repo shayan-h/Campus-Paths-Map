@@ -12,6 +12,18 @@
 package campuspaths;
 
 import campuspaths.utils.CORSFilter;
+import com.google.gson.Gson;
+import pathfinder.CampusMap;
+import pathfinder.datastructures.Path;
+import pathfinder.datastructures.Point;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.Spark;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class SparkServer {
 
@@ -24,6 +36,28 @@ public class SparkServer {
         // You should leave these two lines at the very beginning of main().
 
         // TODO: Create all the Spark Java routes you need here.
+
+        CampusMap campusMap = new CampusMap();
+        Spark.get("/home-page", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                return "Home Page";
+            }
+        });
+        Spark.get("/find-campus-path", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                String start = request.queryParams("start");
+                String dest =  request.queryParams("dest");
+                if (start == null || dest == null) {
+                    Spark.halt(400, "Start or destination is invalid");
+                }
+                Path<Point> shortestPath = campusMap.findShortestPath(start, dest);
+                Gson gson = new Gson();
+                String jsonResponse = gson.toJson(shortestPath);
+                return jsonResponse;
+            }
+        });
     }
 
 }
