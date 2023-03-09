@@ -31,3 +31,10 @@ file was empty.
     width: 800px;
     height: 600px;
 }
+
+#app-title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px;
+}

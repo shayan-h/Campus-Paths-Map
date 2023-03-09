@@ -21,9 +21,7 @@ import spark.Response;
 import spark.Route;
 import spark.Spark;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class SparkServer {
 
@@ -38,10 +36,13 @@ public class SparkServer {
         // TODO: Create all the Spark Java routes you need here.
 
         CampusMap campusMap = new CampusMap();
-        Spark.get("/home-page", new Route() {
+        Spark.get("/buildingsList", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-                return "Home Page";
+                Map<String, String> buildingsList = campusMap.buildingNames();
+                Gson gson = new Gson();
+                String jsonResponse = gson.toJson(buildingsList);
+                return jsonResponse;
             }
         });
         Spark.get("/find-campus-path", new Route() {
